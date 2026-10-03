@@ -48,83 +48,16 @@
         .nav-wrapper.menu-open .mobile-nav-container { max-height: 400px; padding: 50px 20px 20px; top: 25px; opacity: 1; border-top: none; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
         .mobile-nav-container a, .mobile-nav-container .cart-icon { display: block; width: 100%; text-align: center; margin: 20px 0; font-size: 15px; color: var(--text-muted); text-decoration: none; }
 
-        /* =========================================
-           YENİLENMİŞ, KUSURSUZ HİKAYELER (STORIES)
-           ========================================= */
-        .stories-section { 
-            padding-top: 130px; 
-            width: 100%; 
-            position: relative; 
-            z-index: 2; 
-        }
-        .stories-wrapper { 
-            display: flex; 
-            gap: 20px; 
-            overflow-x: auto; 
-            padding: 10px 5% 20px 5%; 
-            -webkit-overflow-scrolling: touch; 
-        }
+        .stories-section { padding-top: 130px; width: 100%; position: relative; z-index: 2; }
+        .stories-wrapper { display: flex; gap: 20px; overflow-x: auto; padding: 10px 5% 20px 5%; -webkit-overflow-scrolling: touch; }
         .stories-wrapper::-webkit-scrollbar { display: none; }
-        
-        .story-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            width: 90px; /* Sabit Genişlik ile Orantı Koruma */
-            flex-shrink: 0; 
-            cursor: pointer; 
-        }
-        
-        /* Renkli Dış Halka */
-        .story-ring { 
-            width: 86px; 
-            height: 86px; 
-            border-radius: 50%; 
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        
-        /* Resim ile Halka Arasındaki Siyah Boşluk (Safe Area) */
-        .story-image-container { 
-            width: 78px; 
-            height: 78px; 
-            border-radius: 50%; 
-            background-color: var(--bg-dark); /* İç arka plan siyah */
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
-
-        /* Fotoğrafın Kendisi */
-        .story-image-container img { 
-            width: 72px; 
-            height: 72px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 1px solid rgba(255,255,255,0.1); /* Hafif çerçeve */
-        }
-        
+        .story-item { display: flex; flex-direction: column; align-items: center; width: 90px; flex-shrink: 0; cursor: pointer; }
+        .story-ring { width: 86px; height: 86px; border-radius: 50%; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); display: flex; align-items: center; justify-content: center; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .story-image-container { width: 78px; height: 78px; border-radius: 50%; background-color: var(--bg-dark); display: flex; align-items: center; justify-content: center; }
+        .story-image-container img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
         .story-item:active .story-ring { transform: scale(0.92); }
-        
-        /* Hikaye Metni */
-        .story-title { 
-            display: block; 
-            text-align: center; 
-            font-size: 11.5px; 
-            margin-top: 8px; 
-            color: #eeeeee; 
-            font-weight: 500; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            width: 100%; 
-            letter-spacing: 0.3px;
-        }
+        .story-title { display: block; text-align: center; font-size: 11.5px; margin-top: 8px; color: #eeeeee; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; letter-spacing: 0.3px; }
 
-        /* --- TAM EKRAN HİKAYE MODALI --- */
         .story-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .story-modal.active { display: flex; opacity: 1; }
         .story-progress-container { display: flex; gap: 5px; padding: 15px; padding-top: env(safe-area-inset-top, 20px); position: absolute; top: 0; width: 100%; z-index: 2; }
@@ -137,7 +70,6 @@
         .story-info h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 2.2rem; color: #fff; }
         .swipe-up-btn { background: var(--text-main); color: var(--bg-dark); padding: 16px 35px; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 13px; border: none; cursor: pointer; letter-spacing: 1px; }
 
-        /* --- HERO --- */
         .hero { min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding: 40px 5%; margin-top: -20px; }
         .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; background: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; opacity: 0.3; -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%); mask-image: linear-gradient(to bottom, black 20%, transparent 100%); }
         .hero-content { position: relative; z-index: 1; }
@@ -205,18 +137,14 @@
             .logo { font-size: 22px; }
             .menu-toggle { display: block; }
             nav { display: none; } 
-            
             .stories-section { padding-top: max(100px, calc(90px + env(safe-area-inset-top))); }
-            
             .hero { min-height: 45vh; margin-top: 0; padding-top: 20px; }
             .hero h1 { font-size: 3rem; }
             .hero h1 i { font-size: 3.8rem; }
-            
             section { padding: 60px 5%; }
             .section-header { margin-bottom: 40px; }
             .section-header h2 { font-size: 1.8rem; }
             .section-header span { font-size: 2rem; }
-
             .feed-overlay { transform: translateY(0); background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 25px 20px; }
             .feed-card { height: 350px; }
             .price-list { padding: 10px 20px; }
@@ -258,50 +186,28 @@
         </div>
     </div>
 
-    <!-- KUSURSUZ YENİLENMİŞ HİKAYELER -->
+    <!-- HİKAYELER -->
     <div class="stories-section">
         <div class="stories-wrapper">
-            
             <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Sonbahar Koleksiyonu', 'Kalıcı Oje')">
-                <div class="story-ring">
-                    <div class="story-image-container">
-                        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                    </div>
-                </div>
+                <div class="story-ring"><div class="story-image-container"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story"></div></div>
                 <span class="story-title">Yeni Sezon</span>
             </div>
-
             <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Gelin Tırnakları', 'Protez Tırnak')">
-                <div class="story-ring">
-                    <div class="story-image-container">
-                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                    </div>
-                </div>
+                <div class="story-ring"><div class="story-image-container"><img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story"></div></div>
                 <span class="story-title">Gelin Art</span>
             </div>
-
             <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Müşteri Memnuniyeti', 'Nail Art')">
-                <div class="story-ring">
-                    <div class="story-image-container">
-                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                    </div>
-                </div>
+                <div class="story-ring"><div class="story-image-container"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story"></div></div>
                 <span class="story-title">Sizden Gelenler</span>
             </div>
-
             <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Stüdyomuz', 'Genel')">
-                <div class="story-ring">
-                    <div class="story-image-container">
-                        <img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                    </div>
-                </div>
+                <div class="story-ring"><div class="story-image-container"><img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story"></div></div>
                 <span class="story-title">Stüdyomuz</span>
             </div>
-
         </div>
     </div>
 
-    <!-- TAM EKRAN HİKAYE MODALI -->
     <div class="story-modal" id="storyModal">
         <div class="story-progress-container">
             <div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div>
@@ -323,74 +229,35 @@
         </div>
     </section>
 
-    <!-- HİZMETLER -->
     <section id="hizmetler">
-        <div class="section-header">
-            <span>Özel</span>
-            <h2>Hizmetlerimiz</h2>
-        </div>
+        <div class="section-header"><span>Özel</span><h2>Hizmetlerimiz</h2></div>
         <div class="services-grid">
-            <div class="glass-card">
-                <h3>Protez Tırnak</h3>
-                <p>Estetiği ve dayanıklılığı bir araya getiren ultra ince jel protez mimarisi. Kusursuz ve uzun ömürlü bir deneyim.</p>
-            </div>
-            <div class="glass-card">
-                <h3>Kalıcı Oje</h3>
-                <p>İlk günkü parlaklığını haftalarca koruyan, çizilmelere karşı ekstra dirençli özel formül premium oje.</p>
-            </div>
-            <div class="glass-card">
-                <h3>Nail Art</h3>
-                <p>Klasikten avangarda, tarzınızı tırnaklarınıza taşıyan kişiye özel el çizimi tasarımlar ve süslemeler.</p>
-            </div>
+            <div class="glass-card"><h3>Protez Tırnak</h3><p>Estetiği ve dayanıklılığı bir araya getiren ultra ince jel protez mimarisi.</p></div>
+            <div class="glass-card"><h3>Kalıcı Oje</h3><p>İlk günkü parlaklığını haftalarca koruyan, çizilmelere karşı ekstra dirençli özel formül premium oje.</p></div>
+            <div class="glass-card"><h3>Nail Art</h3><p>Klasikten avangarda, tarzınızı tırnaklarınıza taşıyan kişiye özel el çizimi tasarımlar.</p></div>
         </div>
     </section>
 
-    <!-- SOSYAL GALERİ -->
     <section id="galeri">
-        <div class="section-header">
-            <span>Trendler</span>
-            <h2>Sosyal Akış</h2>
-        </div>
+        <div class="section-header"><span>Trendler</span><h2>Sosyal Akış</h2></div>
         <div class="social-feed-container">
             <div class="social-feed">
-                <div class="feed-card">
-                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 1">
-                    <div class="feed-overlay">
-                        <p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">French Ombre & Taş Süsleme</p>
-                        <button class="book-this-btn" onclick="scrollToRandevu('Kalıcı Oje')">Bunu Yaptır</button>
-                    </div>
-                </div>
-                <div class="feed-card">
-                    <img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 2">
-                    <div class="feed-overlay">
-                        <p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">Soft Pembe Protez</p>
-                        <button class="book-this-btn" onclick="scrollToRandevu('Protez Tırnak')">Bunu Yaptır</button>
-                    </div>
-                </div>
-                <div class="feed-card">
-                    <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 3">
-                    <div class="feed-overlay">
-                        <p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">Dark Red Kış Serisi</p>
-                        <button class="book-this-btn" onclick="scrollToRandevu('Nail Art')">Bunu Yaptır</button>
-                    </div>
-                </div>
+                <div class="feed-card"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 1"><div class="feed-overlay"><p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">French Ombre</p><button class="book-this-btn" onclick="scrollToRandevu('Kalıcı Oje')">Bunu Yaptır</button></div></div>
+                <div class="feed-card"><img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 2"><div class="feed-overlay"><p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">Soft Pembe</p><button class="book-this-btn" onclick="scrollToRandevu('Protez Tırnak')">Bunu Yaptır</button></div></div>
+                <div class="feed-card"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 3"><div class="feed-overlay"><p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">Dark Red</p><button class="book-this-btn" onclick="scrollToRandevu('Nail Art')">Bunu Yaptır</button></div></div>
             </div>
         </div>
     </section>
 
-    <!-- FİYAT LİSTESİ -->
     <section id="fiyatlar">
-        <div class="section-header">
-            <span>Şeffaf</span>
-            <h2>Fiyat Listesi</h2>
-        </div>
+        <div class="section-header"><span>Şeffaf</span><h2>Fiyat Listesi</h2></div>
         <div class="price-list">
             <div class="accordion-item">
                 <button class="accordion-header" onclick="toggleAcc(this)">Jel & Akrilik İşlemleri <span style="color:var(--text-muted);">+</span></button>
                 <div class="accordion-content">
                     <div class="price-row"><span>Sıfırdan Jel Protez</span> <span>1.200 TL</span></div>
                     <div class="price-row"><span>Jel Protez Bakımı</span> <span>850 TL</span></div>
-                    <div class="price-row"><span>Protez Çıkarma (Manikür Dahil)</span> <span>450 TL</span></div>
+                    <div class="price-row"><span>Protez Çıkarma</span> <span>450 TL</span></div>
                 </div>
             </div>
             <div class="accordion-item">
@@ -404,56 +271,30 @@
         </div>
     </section>
 
-    <!-- MAĞAZA -->
     <section id="magaza">
-        <div class="section-header">
-            <span>Premium</span>
-            <h2>Evde Bakım</h2>
-        </div>
+        <div class="section-header"><span>Premium</span><h2>Evde Bakım</h2></div>
         <div class="shop-grid">
             <div class="product-card">
-                <div class="product-img-box">
-                    <img src="https://images.unsplash.com/photo-1615397323214-ba367c74fba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Kütikül Yağı">
-                </div>
-                <div class="product-info">
-                    <h3>Özel Kütikül Yağı</h3>
-                    <span class="price">250 TL</span>
-                </div>
+                <div class="product-img-box"><img src="https://images.unsplash.com/photo-1615397323214-ba367c74fba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Kütikül Yağı"></div>
+                <div class="product-info"><h3>Özel Kütikül Yağı</h3><span class="price">250 TL</span></div>
                 <button class="add-to-cart" onclick="sepeteEkle('Kütikül Yağı', 250, this)">Sepete Ekle</button>
             </div>
             <div class="product-card">
-                <div class="product-img-box">
-                    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="El Kremi">
-                </div>
-                <div class="product-info">
-                    <h3>Organik El Kremi</h3>
-                    <span class="price">380 TL</span>
-                </div>
+                <div class="product-img-box"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="El Kremi"></div>
+                <div class="product-info"><h3>Organik El Kremi</h3><span class="price">380 TL</span></div>
                 <button class="add-to-cart" onclick="sepeteEkle('El Kremi', 380, this)">Sepete Ekle</button>
             </div>
         </div>
     </section>
 
-    <!-- RANDEVU FORMU -->
     <section id="randevu">
-        <div class="section-header">
-            <span>Zamanınızı</span>
-            <h2>Rezerve Edin</h2>
-        </div>
+        <div class="section-header"><span>Zamanınızı</span><h2>Rezerve Edin</h2></div>
         <div class="form-container">
             <form id="bookingForm">
-                <div class="input-box">
-                    <input type="text" id="name" required placeholder="Adınız ve Soyadınız">
-                </div>
-                <div class="input-box">
-                    <input type="tel" id="phone" required placeholder="Telefon Numaranız">
-                </div>
-                <div class="input-box">
-                    <input type="text" id="serviceInput" required placeholder="İstediğiniz İşlem (Örn: Kalıcı Oje)">
-                </div>
-                <div class="input-box">
-                    <input type="date" id="date" required>
-                </div>
+                <div class="input-box"><input type="text" id="name" required placeholder="Adınız ve Soyadınız"></div>
+                <div class="input-box"><input type="tel" id="phone" required placeholder="Telefon Numaranız"></div>
+                <div class="input-box"><input type="text" id="serviceInput" required placeholder="İstediğiniz İşlem (Örn: Kalıcı Oje)"></div>
+                <div class="input-box"><input type="date" id="date" required></div>
                 <button type="submit" class="submit-btn" id="submitBtn">Randevuyu Onayla</button>
             </form>
         </div>
@@ -461,17 +302,12 @@
 
     <footer>&copy; 2026 SN BEAUTYNAILS. Apple Design Inspired.</footer>
 
-    <!-- SABİT WHATSAPP BUTONU -->
     <a href="https://wa.me/905551234567" class="whatsapp-float" target="_blank">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 2.4c-7.6 0-13.8 6.2-13.8 13.8 0 2.4.6 4.8 1.8 6.9l-2 7.3 7.5-2c2.1 1.1 4.4 1.7 6.8 1.7 7.6 0 13.8-6.2 13.8-13.8S24.2 2.4 16.6 2.4zm0 25c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.5c-1.1-1.7-1.7-3.8-1.7-5.9 0-6.3 5.1-11.4 11.4-11.4s11.4 5.1 11.4 11.4-5.1 11.3-11.4 11.3zm6.2-8.4c-.3-.2-2-.1-2.3-.9-.1-.2-.2-.3-.3-.5-.2-.3-.4-.5-.7-.5-.2 0-.4.1-.5.3l-.7.9c-.2.2-.4.2-.7.1-1.6-.7-2.7-1.4-3.8-2.6-.8-.9-1.3-1.8-1.7-2.8-.1-.3 0-.5.2-.6l.5-.6c.2-.2.3-.4.3-.7 0-.2-.1-.5-.2-.7-.3-.8-1.2-2.9-1.6-3.9-.4-1-.8-1-1.1-1h-.9c-.3 0-.8.1-1.2.6-.4.5-1.5 1.5-1.5 3.6s1.6 4.1 1.8 4.4c.2.3 3 4.6 7.3 6.4 1 .4 1.8.7 2.5.9.9.3 1.9.2 2.6.1.8-.1 2.5-1 2.8-2 .4-1 .4-1.9.3-2.1-.2-.2-.5-.3-.9-.5z"/></svg>
     </a>
 
-    <!-- TÜM ETKİLEŞİM SCRİPTLERİ -->
     <script>
-        function toggleMenu() { 
-            document.getElementById('navWrapper').classList.toggle('menu-open'); 
-        }
-
+        function toggleMenu() { document.getElementById('navWrapper').classList.toggle('menu-open'); }
         function toggleAcc(btn) {
             const content = btn.nextElementSibling;
             const sign = btn.querySelector('span');
@@ -485,99 +321,64 @@
                 sign.innerText = "–";
             }
         }
-
         function scrollToRandevu(islem) {
             document.getElementById('serviceInput').value = islem;
             document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' });
         }
 
-        let storyTimer;
-        let selectedService = '';
-        
+        let storyTimer; let selectedService = '';
         function openStory(imgUrl, title, service) {
             const modal = document.getElementById('storyModal');
             document.getElementById('storyContent').style.backgroundImage = `url(${imgUrl})`;
             document.getElementById('storyTitle').innerText = title;
             selectedService = service;
-            
             modal.classList.add('active');
             
             const progress = document.getElementById('storyProgress');
-            progress.style.transition = 'none';
-            progress.style.width = '0%';
-            
-            setTimeout(() => {
-                progress.style.transition = 'width 5s linear';
-                progress.style.width = '100%';
-            }, 50);
-
+            progress.style.transition = 'none'; progress.style.width = '0%';
+            setTimeout(() => { progress.style.transition = 'width 5s linear'; progress.style.width = '100%'; }, 50);
             storyTimer = setTimeout(closeStory, 5000);
         }
+        function closeStory() { document.getElementById('storyModal').classList.remove('active'); clearTimeout(storyTimer); }
+        function storyToBooking() { closeStory(); scrollToRandevu(selectedService); }
 
-        function closeStory() {
-            document.getElementById('storyModal').classList.remove('active');
-            clearTimeout(storyTimer);
-        }
-
-        function storyToBooking() {
-            closeStory();
-            scrollToRandevu(selectedService);
-        }
-
-        let sepet = [];
-        let toplamTutar = 0;
-
+        let sepet = []; let toplamTutar = 0;
         function sepeteEkle(urunAdi, fiyat, btn) {
-            sepet.push({isim: urunAdi, fiyat: fiyat});
-            toplamTutar += fiyat;
+            sepet.push({isim: urunAdi, fiyat: fiyat}); toplamTutar += fiyat;
             document.getElementById('cartCount').innerText = sepet.length;
             document.getElementById('cartCountMobile').innerText = sepet.length;
-            
-            let orijinalMetin = btn.innerText;
-            btn.innerText = "Eklendi ✓";
-            btn.style.background = "var(--text-main)";
-            btn.style.color = "var(--bg-dark)";
-            
-            setTimeout(() => {
-                btn.innerText = orijinalMetin;
-                btn.style.background = "var(--accent)";
-                btn.style.color = "var(--text-main)";
-            }, 1500);
+            let orijinalMetin = btn.innerText; btn.innerText = "Eklendi ✓"; btn.style.background = "var(--text-main)"; btn.style.color = "var(--bg-dark)";
+            setTimeout(() => { btn.innerText = orijinalMetin; btn.style.background = "var(--accent)"; btn.style.color = "var(--text-main)"; }, 1500);
         }
-
         function sepetiGoster() {
-            if(sepet.length === 0) {
-                alert("Sepetiniz boş.");
-            } else {
+            if(sepet.length === 0) { alert("Sepetiniz boş."); } else {
                 let mesaj = "Sepetinizdekiler:\n";
                 sepet.forEach(urun => mesaj += `- ${urun.isim} (${urun.fiyat} TL)\n`);
                 mesaj += `\nToplam: ${toplamTutar} TL\nWhatsApp'tan sipariş vermek ister misiniz?`;
-                if(confirm(mesaj)) {
-                    window.open(`https://wa.me/905551234567?text=Merhaba, şu ürünleri sipariş vermek istiyorum: ${sepet.map(u=>u.isim).join(', ')}`, '_blank');
-                }
+                if(confirm(mesaj)) { window.open(`https://wa.me/905551234567?text=Merhaba, şu ürünleri sipariş vermek istiyorum: ${sepet.map(u=>u.isim).join(', ')}`, '_blank'); }
             }
         }
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Uygulama arka planda aktif!', reg))
-                .catch(err => console.error('PWA hatası:', err));
+                navigator.serviceWorker.register('./sw.js').catch(err => console.error('PWA hatası:', err));
             });
         }
     </script>
 
+    <!-- FİREBASE BAĞLANTISI (TAMAMLANDI) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "SENIN_API_KEY",
-            authDomain: "SENIN_AUTH_DOMAIN",
-            projectId: "SENIN_PROJECT_ID",
-            storageBucket: "SENIN_STORAGE_BUCKET",
-            messagingSenderId: "SENIN_MESSAGING_SENDER",
-            appId: "SENIN_APP_ID"
+            apiKey: "AIzaSyDTPjmpnp7fD3LDRGekS1jZL-_yZI1JqTk",
+            authDomain: "sn-beautynails.firebaseapp.com",
+            projectId: "sn-beautynails",
+            storageBucket: "sn-beautynails.firebasestorage.app",
+            messagingSenderId: "877888681284",
+            appId: "1:877888681284:web:14d82620cca85a9b625311",
+            measurementId: "G-59DLV5MZGF"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -600,7 +401,8 @@
                 alert("Randevu talebiniz başarıyla alındı!");
                 e.target.reset();
             } catch (error) {
-                alert("Firebase bağlantısı yapılmadı, ancak form arayüzü test edilebilir durumda.");
+                console.error(error);
+                alert("Randevu alınamadı. Veritabanı test modunda olmayabilir.");
             }
             btn.innerText = originalText;
         });
