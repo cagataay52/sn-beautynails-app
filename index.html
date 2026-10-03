@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SN BEAUTYNAILS | Exclusive Studio</title>
     
-    <!-- PWA VE APPLE APP ETİKETLERİ -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -13,87 +12,117 @@
     <meta name="apple-mobile-web-app-title" content="SN Beauty">
     <link rel="apple-touch-icon" href="https://via.placeholder.com/192/d81b60/ffffff?text=SN">
 
-    <!-- APPLE TARZI PREMİUM FONTLAR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --accent: #d81b60; /* Çarpıcı koyu pembe */
-            --bg-dark: #000000; /* Apple OLED True Black */
-            --surface: rgba(28, 28, 30, 0.6); /* iOS Dark Mode Surface */
+            --accent: #d81b60;
+            --bg-dark: #000000;
+            --surface: rgba(28, 28, 30, 0.6);
             --border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
-            --text-muted: #8e8e93; /* Apple Gray */
+            --text-muted: #8e8e93;
         }
 
-        /* --- SIFIRLAMA & TEMEL AYARLAR --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            scroll-behavior: smooth;
-            width: 100%;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; width: 100%; }
 
-        /* --- AMBIENT GLOW (Optimize Edilmiş Işıklar) --- */
         .ambient-glow { position: fixed; border-radius: 50%; filter: blur(140px); z-index: -2; opacity: 0.3; pointer-events: none; will-change: transform; }
         .glow-1 { top: -20%; left: -10%; width: 60vw; height: 60vw; background: var(--accent); }
         .glow-2 { bottom: 0%; right: -20%; width: 50vw; height: 50vw; background: #5a0022; }
 
-        /* --- DYNAMIC ISLAND NAVBAR --- */
-        .nav-wrapper {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 92%; max-width: 1200px; z-index: 1000;
-        }
-        
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(20, 20, 22, 0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border); border-radius: 40px; padding: 15px 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6); position: relative; z-index: 1001;
-        }
-        
+        .nav-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 1200px; z-index: 1000; }
+        header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 20, 22, 0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid var(--border); border-radius: 40px; padding: 15px 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); position: relative; z-index: 1001; }
         .logo { font-family: 'Dancing Script', cursive; font-size: 26px; color: var(--text-main); text-decoration: none; text-shadow: 0 0 10px rgba(216,27,96,0.3); }
         .logo span { color: var(--accent); }
-        
         nav { display: flex; align-items: center; }
         nav a { text-decoration: none; color: var(--text-muted); margin-left: 30px; font-size: 13px; font-weight: 500; transition: color 0.3s; }
         nav a:hover { color: var(--text-main); }
-        
         .cart-icon { position: relative; cursor: pointer; color: var(--accent); margin-left: 30px; font-weight: 600; font-size: 13px; display: flex; align-items: center; }
         .cart-count { position: absolute; top: -10px; right: -15px; background: var(--text-main); color: var(--bg-dark); font-size: 10px; padding: 3px 7px; border-radius: 20px; font-weight: 700; }
-        
         .menu-toggle { display: none; color: var(--text-main); cursor: pointer; padding: 5px; }
 
-        /* Mobil Açılır Menü (Kapsül içi entegrasyon) */
-        .mobile-nav-container {
-            position: absolute; top: 30px; left: 0; width: 100%;
-            background: rgba(20, 20, 22, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border); border-radius: 0 0 30px 30px;
-            padding: 0; max-height: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000; opacity: 0;
+        .mobile-nav-container { position: absolute; top: 30px; left: 0; width: 100%; background: rgba(20, 20, 22, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid var(--border); border-radius: 0 0 30px 30px; padding: 0; max-height: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; opacity: 0; }
+        .nav-wrapper.menu-open .mobile-nav-container { max-height: 400px; padding: 50px 20px 20px; top: 25px; opacity: 1; border-top: none; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        .mobile-nav-container a, .mobile-nav-container .cart-icon { display: block; width: 100%; text-align: center; margin: 20px 0; font-size: 15px; color: var(--text-muted); text-decoration: none; }
+
+        /* =========================================
+           YENİLENMİŞ, KUSURSUZ HİKAYELER (STORIES)
+           ========================================= */
+        .stories-section { 
+            padding-top: 130px; 
+            width: 100%; 
+            position: relative; 
+            z-index: 2; 
         }
-        .nav-wrapper.menu-open .mobile-nav-container {
-            max-height: 400px; padding: 50px 20px 20px; top: 25px; opacity: 1; border-top: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        .stories-wrapper { 
+            display: flex; 
+            gap: 20px; 
+            overflow-x: auto; 
+            padding: 10px 5% 20px 5%; 
+            -webkit-overflow-scrolling: touch; 
         }
-        .mobile-nav-container a, .mobile-nav-container .cart-icon {
-            display: block; width: 100%; text-align: center; margin: 20px 0; font-size: 15px; color: var(--text-muted); text-decoration: none;
+        .stories-wrapper::-webkit-scrollbar { display: none; }
+        
+        .story-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 90px; /* Sabit Genişlik ile Orantı Koruma */
+            flex-shrink: 0; 
+            cursor: pointer; 
+        }
+        
+        /* Renkli Dış Halka */
+        .story-ring { 
+            width: 86px; 
+            height: 86px; 
+            border-radius: 50%; 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        
+        /* Resim ile Halka Arasındaki Siyah Boşluk (Safe Area) */
+        .story-image-container { 
+            width: 78px; 
+            height: 78px; 
+            border-radius: 50%; 
+            background-color: var(--bg-dark); /* İç arka plan siyah */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
         }
 
-        /* --- HİKAYELER (STORIES) --- */
-        .stories-section { padding-top: 120px; width: 100%; overflow: hidden; position: relative; z-index: 2; }
-        .stories-wrapper { display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 5% 20px; -webkit-overflow-scrolling: touch; }
-        .stories-wrapper::-webkit-scrollbar { display: none; }
-        .story-bubble { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); cursor: pointer; flex-shrink: 0; scroll-snap-align: start; transition: transform 0.2s; }
-        .story-bubble:active { transform: scale(0.95); }
-        .story-bubble img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--bg-dark); object-fit: cover; }
-        .story-bubble span { display: block; text-align: center; font-size: 11px; margin-top: 8px; color: var(--text-main); font-weight: 500; white-space: nowrap; }
+        /* Fotoğrafın Kendisi */
+        .story-image-container img { 
+            width: 72px; 
+            height: 72px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid rgba(255,255,255,0.1); /* Hafif çerçeve */
+        }
+        
+        .story-item:active .story-ring { transform: scale(0.92); }
+        
+        /* Hikaye Metni */
+        .story-title { 
+            display: block; 
+            text-align: center; 
+            font-size: 11.5px; 
+            margin-top: 8px; 
+            color: #eeeeee; 
+            font-weight: 500; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            width: 100%; 
+            letter-spacing: 0.3px;
+        }
 
         /* --- TAM EKRAN HİKAYE MODALI --- */
         .story-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
@@ -117,21 +146,18 @@
         .btn-glow { display: inline-block; margin-top: 30px; padding: 16px 40px; background: var(--text-main); color: var(--bg-dark); border-radius: 30px; font-weight: 600; font-size: 13px; text-decoration: none; transition: 0.3s; }
         .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.2); }
 
-        /* --- ORTAK BÖLÜMLER --- */
         section { padding: 80px 5%; position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 50px; }
         .section-header span { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 2.5rem; display: block; margin-bottom: -10px; }
         .section-header h2 { font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; }
 
-        /* --- HİZMETLER KARTLARI --- */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .glass-card { background: var(--surface); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid var(--border); padding: 40px 30px; text-align: center; border-radius: 32px; transition: 0.4s; }
         .glass-card:hover { transform: translateY(-5px); background: rgba(40,40,44,0.8); border-color: rgba(255,255,255,0.2); }
         .glass-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
         .glass-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        /* --- SOSYAL GALERİ --- */
-        .social-feed-container { width: 100vw; margin-left: calc(-50vw + 50%); position: relative; } /* Ekranı tam kaplaması için taşma taktiği */
+        .social-feed-container { width: 100vw; margin-left: calc(-50vw + 50%); position: relative; } 
         .social-feed { display: flex; overflow-x: auto; gap: 20px; padding: 10px 5% 30px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .social-feed::-webkit-scrollbar { display: none; } 
         .feed-card { min-width: 280px; height: 400px; position: relative; scroll-snap-align: center; border-radius: 28px; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
@@ -141,7 +167,6 @@
         .book-this-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 25px; font-size: 12px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; }
         .book-this-btn:hover { background: var(--text-main); color: var(--bg-dark); }
 
-        /* --- FİYAT LİSTESİ --- */
         .price-list { max-width: 800px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 32px; padding: 15px 30px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
         .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
         .accordion-item:last-child { border: none; }
@@ -150,7 +175,6 @@
         .price-row { display: flex; justify-content: space-between; padding-bottom: 20px; color: var(--text-muted); font-size: 0.95rem; align-items: center; }
         .price-row span:last-child { color: var(--text-main); font-weight: 500; font-size: 1rem; }
 
-        /* --- MAĞAZA --- */
         .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
         .product-card { background: var(--surface); border: 1px solid var(--border); padding: 20px; text-align: center; border-radius: 32px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); display: flex; flex-direction: column; justify-content: space-between; }
         .product-card img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 20px; border-radius: 20px; }
@@ -159,38 +183,30 @@
         .add-to-cart { background: var(--text-main); color: var(--bg-dark); border: none; padding: 16px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 13px; width: 100%; margin-top: auto; }
         .add-to-cart:active { transform: scale(0.97); }
 
-        /* --- iOS TARZI FORM --- */
         .form-container { max-width: 600px; margin: 0 auto; background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
         .input-box { margin-bottom: 20px; }
         .input-box input { width: 100%; padding: 18px 20px; font-size: 1rem; color: var(--text-main); border: 1px solid var(--border); border-radius: 18px; outline: none; background: rgba(0,0,0,0.4); font-family: 'Inter', sans-serif; transition: 0.3s; }
         .input-box input:focus { border-color: var(--accent); background: rgba(0,0,0,0.7); }
         .input-box input::placeholder { color: #666; }
-        /* Tarih input ikonu beyaz yapma taktiği */
         .input-box input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; cursor: pointer; }
         
         .submit-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 20px; font-size: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; margin-top: 10px; letter-spacing: 1px; }
         .submit-btn:active { transform: scale(0.98); }
 
-        /* --- SABİT WHATSAPP --- */
         .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; width: 60px; height: 60px; border-radius: 50%; text-align: center; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.3); z-index: 100; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; padding-bottom: env(safe-area-inset-bottom); }
         .whatsapp-float:active { transform: scale(0.9); }
         .whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
 
         footer { text-align: center; padding: 40px 5%; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
 
-        /* =========================================
-           MOBİL (TELEFON) KUSURSUZ OPTİMİZASYON
-           ========================================= */
         @media (max-width: 768px) {
             .nav-wrapper { width: 92%; top: max(15px, env(safe-area-inset-top)); }
             header { padding: 12px 20px; border-radius: 30px; }
             .logo { font-size: 22px; }
             .menu-toggle { display: block; }
+            nav { display: none; } 
             
-            nav { display: none; } /* Normal menüyü gizle */
-            
-            .stories-section { padding-top: max(100px, calc(80px + env(safe-area-inset-top))); }
-            .story-bubble { width: 75px; height: 75px; }
+            .stories-section { padding-top: max(100px, calc(90px + env(safe-area-inset-top))); }
             
             .hero { min-height: 45vh; margin-top: 0; padding-top: 20px; }
             .hero h1 { font-size: 3rem; }
@@ -203,13 +219,10 @@
 
             .feed-overlay { transform: translateY(0); background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 25px 20px; }
             .feed-card { height: 350px; }
-
             .price-list { padding: 10px 20px; }
             .accordion-header { font-size: 1rem; padding: 20px 0; }
-            
             .form-container { padding: 30px 20px; }
-            .input-box input { padding: 15px; font-size: 16px; /* iOS zoom engelleme */ }
-            
+            .input-box input { padding: 15px; font-size: 16px; }
             .whatsapp-float { bottom: max(20px, env(safe-area-inset-bottom)); right: 20px; width: 55px; height: 55px; }
             .whatsapp-float svg { width: 28px; height: 28px; }
         }
@@ -217,18 +230,15 @@
 </head>
 <body>
 
-    <!-- ARKA PLAN IŞIKLARI -->
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
 
-    <!-- DYNAMIC ISLAND NAVBAR -->
     <div class="nav-wrapper" id="navWrapper">
         <header>
             <a href="#" class="logo">SN <span>Beautynails</span></a>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </div>
-            <!-- Masaüstü Navigasyon -->
             <nav>
                 <a href="#hizmetler">Hizmetler</a>
                 <a href="#galeri">İlham Al</a>
@@ -238,7 +248,6 @@
                 <div class="cart-icon" onclick="sepetiGoster()">Sepet <span class="cart-count" id="cartCount">0</span></div>
             </nav>
         </header>
-        <!-- Mobil Açılır Navigasyon -->
         <div class="mobile-nav-container">
             <a href="#hizmetler" onclick="toggleMenu()">Hizmetler</a>
             <a href="#galeri" onclick="toggleMenu()">Sosyal Akış</a>
@@ -249,21 +258,46 @@
         </div>
     </div>
 
-    <!-- HİKAYELER (STORIES) -->
+    <!-- KUSURSUZ YENİLENMİŞ HİKAYELER -->
     <div class="stories-section">
         <div class="stories-wrapper">
-            <div class="story-bubble" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Sonbahar Koleksiyonu', 'Kalıcı Oje')">
-                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                <span>Yeni Sezon</span>
+            
+            <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Sonbahar Koleksiyonu', 'Kalıcı Oje')">
+                <div class="story-ring">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
+                    </div>
+                </div>
+                <span class="story-title">Yeni Sezon</span>
             </div>
-            <div class="story-bubble" onclick="openStory('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Gelin Tırnakları', 'Protez Tırnak')">
-                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                <span>Gelin Art</span>
+
+            <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Gelin Tırnakları', 'Protez Tırnak')">
+                <div class="story-ring">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
+                    </div>
+                </div>
+                <span class="story-title">Gelin Art</span>
             </div>
-            <div class="story-bubble" onclick="openStory('https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Müşteri Memnuniyeti', 'Nail Art')">
-                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-                <span>Müşteriler</span>
+
+            <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Müşteri Memnuniyeti', 'Nail Art')">
+                <div class="story-ring">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
+                    </div>
+                </div>
+                <span class="story-title">Sizden Gelenler</span>
             </div>
+
+            <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Stüdyomuz', 'Genel')">
+                <div class="story-ring">
+                    <div class="story-image-container">
+                        <img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
+                    </div>
+                </div>
+                <span class="story-title">Stüdyomuz</span>
+            </div>
+
         </div>
     </div>
 
@@ -434,12 +468,10 @@
 
     <!-- TÜM ETKİLEŞİM SCRİPTLERİ -->
     <script>
-        // 1. Kusursuz Mobil Menü
         function toggleMenu() { 
             document.getElementById('navWrapper').classList.toggle('menu-open'); 
         }
 
-        // 2. Fiyat Listesi Akordeon
         function toggleAcc(btn) {
             const content = btn.nextElementSibling;
             const sign = btn.querySelector('span');
@@ -454,13 +486,11 @@
             }
         }
 
-        // 3. Randevuya Kaydır
         function scrollToRandevu(islem) {
             document.getElementById('serviceInput').value = islem;
             document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 4. Hikaye (Stories) Mantığı
         let storyTimer;
         let selectedService = '';
         
@@ -494,7 +524,6 @@
             scrollToRandevu(selectedService);
         }
 
-        // 5. Sepet ve Mağaza Mantığı
         let sepet = [];
         let toplamTutar = 0;
 
@@ -529,7 +558,6 @@
             }
         }
 
-        // 6. PWA Service Worker (Uygulama Gibi Yükleme)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -539,12 +567,10 @@
         }
     </script>
 
-    <!-- FİREBASE VERİTABANI BAĞLANTISI -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-        // YALNIZCA BU KISMA KENDİ FİREBASE AYARLARINI GİRECEKSİN
         const firebaseConfig = {
             apiKey: "SENIN_API_KEY",
             authDomain: "SENIN_AUTH_DOMAIN",
