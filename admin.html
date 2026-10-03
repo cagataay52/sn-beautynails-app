@@ -11,41 +11,60 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: #f4f4f9; display: flex; height: 100vh; overflow: hidden; }
         
+        /* SOL MENÜ */
         .sidebar { width: 260px; background: #1c1c1e; color: white; padding: 30px 20px; display: flex; flex-direction: column; }
         .sidebar h2 { color: #d81b60; margin-bottom: 40px; font-size: 24px; font-family: 'Dancing Script', cursive; text-align: center; letter-spacing: 2px; }
         .nav-item { padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-weight: 500; color: #a0a0a0; }
         .nav-item:hover { background: rgba(216, 27, 96, 0.2); color: white; }
         .nav-item.active { background: #d81b60; color: white; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4); }
         
+        /* ANA İÇERİK */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; background: #f4f4f9; }
         .tab-content { display: none; animation: fadeIn 0.4s; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .header-title { font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #111; }
+        .header-title { font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #111; display: flex; justify-content: space-between; align-items: center; }
         
-        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 18px 15px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+        /* TABLOLAR VE KARTLAR */
+        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        .card-header { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
         th { color: #888; text-transform: uppercase; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
         tr:hover { background-color: #fafafa; }
-        .status-badge { padding: 6px 12px; border-radius: 20px; background: #e3fcef; color: #10b981; font-size: 12px; font-weight: 600; }
-        .btn-refresh { background: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; float: right; margin-top: -50px; transition: 0.3s; }
+        
+        /* BUTONLAR VE ROZETLER */
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status-yeni { background: #fff1f2; color: #e11d48; }
+        .status-tamam { background: #f3f4f6; color: #6b7280; }
+        .btn-action { background: #10b981; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.3s; }
+        .btn-action:hover { background: #059669; }
+        .btn-refresh { background: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 14px; }
         .btn-refresh:hover { background: #d81b60; }
 
+        /* FİNANS */
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
-        .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-left: 4px solid #111; }
+        .metric-card.profit-card { border-left-color: #10b981; }
+        .metric-card.cost-card { border-left-color: #e11d48; }
         .metric-card h3 { margin: 0 0 10px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         .metric-card .value { font-size: 32px; font-weight: 600; color: #111; }
         .profit { color: #10b981 !important; }
-        .cost { color: #d81b60 !important; }
+        .cost { color: #e11d48 !important; }
         .chart-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); height: 400px; }
 
+        /* PRO IG STÜDYO */
         .studio-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
-        .studio-controls { display: flex; flex-direction: column; gap: 20px; }
-        .studio-controls input { padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-family: 'Inter'; font-size: 14px; outline: none; }
-        .studio-controls input:focus { border-color: #d81b60; }
-        .btn-studio { background: #111; color: #fff; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .studio-controls { display: flex; flex-direction: column; gap: 15px; }
+        .control-group { display: flex; flex-direction: column; gap: 5px; }
+        .control-group label { font-size: 12px; color: #666; font-weight: 600; text-transform: uppercase; }
+        .studio-controls input[type="text"], .studio-controls input[type="range"] { padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Inter'; font-size: 14px; outline: none; width: 100%; }
+        .color-picker { -webkit-appearance: none; border: none; width: 40px; height: 40px; border-radius: 5px; cursor: pointer; padding: 0; }
+        .color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+        .color-picker::-webkit-color-swatch { border: none; border-radius: 5px; }
+        .flex-row { display: flex; gap: 15px; align-items: center; }
+        .btn-studio { background: #111; color: #fff; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; margin-top: 10px; }
         .btn-studio:hover { background: #d81b60; }
         .canvas-wrapper { background: #eee; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; aspect-ratio: 4/5; }
         canvas { width: 100%; height: 100%; display: block; }
@@ -55,46 +74,96 @@
 
     <div class="sidebar">
         <h2>SN Studio</h2>
-        <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Gelen Randevular</div>
-        <div class="nav-item" onclick="switchTab('finans', this)">📊 Finans & Maliyet</div>
-        <div class="nav-item" onclick="switchTab('studio', this)">🎨 IG Post Stüdyosu</div>
+        <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Randevu Yönetimi</div>
+        <div class="nav-item" onclick="switchTab('finans', this)">📊 Gerçek Zamanlı Finans</div>
+        <div class="nav-item" onclick="switchTab('studio', this)">🎨 PRO IG Stüdyosu</div>
     </div>
 
     <div class="main-content">
         
+        <!-- SEKM 1: RANDEVU YÖNETİMİ -->
         <div id="randevular" class="tab-content active">
-            <h1 class="header-title">Gelen Randevular</h1>
-            <button class="btn-refresh" onclick="randevulariGetir()">Tabloyu Yenile</button>
+            <div class="header-title">
+                Gelen Randevular
+                <button class="btn-refresh" onclick="randevulariGetir()">Tabloları Yenile</button>
+            </div>
+            
+            <!-- Aktif Bekleyenler -->
             <div class="card">
+                <div class="card-header">🔴 Aktif & Bekleyen İşlemler</div>
+                <table>
+                    <thead><tr><th>Müşteri Adı</th><th>Telefon</th><th>İşlem Seçimi</th><th>Tarih</th><th>Durum</th><th>Aksiyon</th></tr></thead>
+                    <tbody id="aktifRandevuListesi">
+                        <tr><td colspan="6" style="text-align:center; color:#888;">Yükleniyor...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tamamlananlar Arşivi -->
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-header">🟢 Geçmiş & Tamamlanan İşlemler (Arşiv)</div>
                 <table>
                     <thead><tr><th>Müşteri Adı</th><th>Telefon</th><th>İşlem Seçimi</th><th>Tarih</th><th>Durum</th></tr></thead>
-                    <tbody id="randevuListesi">
-                        <tr><td colspan="5" style="text-align:center; padding: 30px; color:#888;">Veriler Firebase'den yükleniyor...</td></tr>
+                    <tbody id="gecmisRandevuListesi">
+                        <!-- Buraya düşecek -->
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- SEKM 2: GERÇEK ZAMANLI FİNANS -->
         <div id="finans" class="tab-content">
-            <h1 class="header-title">Finansal Durum & Maliyet (2026)</h1>
+            <div class="header-title">Canlı Finansal Veriler (Gerçek Randevulardan)</div>
             <div class="metrics-grid">
-                <div class="metric-card"><h3>Tahmini Aylık Ciro</h3><div class="value">₺124.500</div></div>
-                <div class="metric-card"><h3>Malzeme Giderleri</h3><div class="value cost">₺32.800</div></div>
-                <div class="metric-card"><h3>Net Kar Marjı</h3><div class="value profit">%73.6</div></div>
+                <div class="metric-card">
+                    <h3>Gerçekleşen Toplam Ciro</h3>
+                    <div class="value" id="valCiro">₺0</div>
+                </div>
+                <div class="metric-card cost-card">
+                    <h3>Hesaplanan Malzeme Maliyeti</h3>
+                    <div class="value cost" id="valMaliyet">₺0</div>
+                </div>
+                <div class="metric-card profit-card">
+                    <h3>Gerçek Net Kar</h3>
+                    <div class="value profit" id="valKar">₺0</div>
+                </div>
             </div>
             <div class="chart-container"><canvas id="financeChart"></canvas></div>
         </div>
 
+        <!-- SEKM 3: PRO IG STÜDYOSU -->
         <div id="studio" class="tab-content">
-            <h1 class="header-title">Instagram Şablon Üretici</h1>
+            <div class="header-title">Instagram Pro Şablon Üretici</div>
             <div class="card studio-grid">
                 <div class="studio-controls">
-                    <p style="color:#666; font-size:14px; margin-bottom: 10px;">Fotoğrafınızı yükleyin, yazıları düzenleyin ve 1080x1350 formatında tek tıkla şık bir post indirin.</p>
-                    <input type="file" id="imageUpload" accept="image/*">
-                    <input type="text" id="postTitle" placeholder="Ana Başlık (Örn: Kusursuz Protez)" value="Kusursuz Protez">
-                    <input type="text" id="postSub" placeholder="Alt Bilgi (Örn: Detaylı bilgi için DM)" value="Randevu İçin Link Profilde">
-                    <button class="btn-studio" onclick="drawPost()">Önizlemeyi Güncelle</button>
-                    <button class="btn-studio" style="background:#d81b60;" onclick="downloadPost()">Görseli İndir</button>
+                    <div class="control-group">
+                        <label>Fotoğraf Yükle</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Ana Başlık ve Renk</label>
+                        <div class="flex-row">
+                            <input type="text" id="postTitle" value="KUSURSUZ PROTEZ">
+                            <input type="color" id="titleColor" class="color-picker" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Alt Bilgi (Açıklama) ve Renk</label>
+                        <div class="flex-row">
+                            <input type="text" id="postSub" value="Detaylar için profildeki linke tıkla.">
+                            <input type="color" id="subColor" class="color-picker" value="#d81b60">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Karanlık Filtre Yoğunluğu (Opaklık)</label>
+                        <input type="range" id="filterOpacity" min="0" max="100" value="70">
+                    </div>
+
+                    <button class="btn-studio" onclick="drawPost()">🎨 Tasarımı Güncelle</button>
+                    <button class="btn-studio" style="background:#d81b60; margin-top:0;" onclick="downloadPost()">📥 Yüksek Çözünürlüklü İndir</button>
                 </div>
                 <div class="canvas-wrapper"><canvas id="igCanvas" width="1080" height="1350"></canvas></div>
             </div>
@@ -102,6 +171,7 @@
 
     </div>
 
+    <!-- UI VE SEKME SCRIPTLERI -->
     <script>
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -110,19 +180,21 @@
             element.classList.add('active');
         }
 
+        // FİNANS GRAFİĞİ HAZIRLIĞI
         const ctx = document.getElementById('financeChart').getContext('2d');
-        new Chart(ctx, {
+        let financeChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim'],
+                labels: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
                 datasets: [
-                    { label: 'Brüt Ciro (₺)', data: [85000, 92000, 88000, 105000, 112000, 125000, 140000, 135000, 128000, 124500], borderColor: '#111', backgroundColor: 'rgba(17,17,17,0.05)', borderWidth: 3, tension: 0.4, fill: true },
-                    { label: 'Gider Kalemleri (₺)', data: [25000, 28000, 24000, 31000, 33000, 38000, 42000, 39000, 35000, 32800], borderColor: '#d81b60', borderWidth: 3, borderDash: [5, 5], tension: 0.4 }
+                    { label: 'Gerçekleşen Ciro (₺)', data: [0,0,0,0,0,0,0,0,0,0,0,0], borderColor: '#111', backgroundColor: 'rgba(17,17,17,0.05)', borderWidth: 3, tension: 0.4, fill: true },
+                    { label: 'Malzeme Maliyeti (₺)', data: [0,0,0,0,0,0,0,0,0,0,0,0], borderColor: '#e11d48', borderWidth: 3, borderDash: [5, 5], tension: 0.4 }
                 ]
             },
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
         });
 
+        // PRO IG STÜDYO KODLARI
         const canvas = document.getElementById('igCanvas'); const canvasCtx = canvas.getContext('2d');
         let uploadedImage = new Image();
         canvasCtx.fillStyle = '#0a0a0a'; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -144,33 +216,47 @@
                 canvasCtx.drawImage(uploadedImage, x, y, newWidth, newHeight);
             }
 
-            let gradient = canvasCtx.createLinearGradient(0, canvas.height - 600, 0, canvas.height);
-            gradient.addColorStop(0, "transparent"); gradient.addColorStop(1, "rgba(10, 10, 10, 0.95)");
-            canvasCtx.fillStyle = gradient; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+            // Dinamik Filtre (Karartma)
+            const opacity = document.getElementById('filterOpacity').value / 100;
+            let gradient = canvasCtx.createLinearGradient(0, canvas.height - 700, 0, canvas.height);
+            gradient.addColorStop(0, "transparent"); 
+            gradient.addColorStop(1, `rgba(10, 10, 10, ${opacity + 0.2})`);
+            canvasCtx.fillStyle = gradient; 
+            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-            canvasCtx.strokeStyle = "rgba(255,255,255,0.2)"; canvasCtx.lineWidth = 10; canvasCtx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+            // Çerçeve
+            canvasCtx.strokeStyle = "rgba(255,255,255,0.15)"; canvasCtx.lineWidth = 6; 
+            canvasCtx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
 
-            canvasCtx.font = "bold 80px 'Dancing Script', cursive"; canvasCtx.fillStyle = "#d81b60"; canvasCtx.textAlign = "center"; canvasCtx.fillText("SN Beautynails", canvas.width / 2, 140);
+            // Üst Logo
+            canvasCtx.font = "bold 70px 'Dancing Script', cursive"; canvasCtx.fillStyle = "#ffffff"; canvasCtx.textAlign = "center"; 
+            canvasCtx.fillText("SN Beautynails", canvas.width / 2, 140);
             
+            // Dinamik Başlıklar ve Renkler
             const title = document.getElementById('postTitle').value;
-            canvasCtx.font = "bold 90px 'Inter', sans-serif"; canvasCtx.fillStyle = "#ffffff"; canvasCtx.fillText(title.toUpperCase(), canvas.width / 2, canvas.height - 200);
+            const tColor = document.getElementById('titleColor').value;
+            canvasCtx.font = "bold 90px 'Inter', sans-serif"; canvasCtx.fillStyle = tColor; 
+            canvasCtx.fillText(title.toUpperCase(), canvas.width / 2, canvas.height - 220);
             
             const sub = document.getElementById('postSub').value;
-            canvasCtx.font = "40px 'Inter', sans-serif"; canvasCtx.fillStyle = "#aaaaaa"; canvasCtx.fillText(sub, canvas.width / 2, canvas.height - 120);
+            const sColor = document.getElementById('subColor').value;
+            canvasCtx.font = "600 45px 'Inter', sans-serif"; canvasCtx.fillStyle = sColor; 
+            canvasCtx.fillText(sub, canvas.width / 2, canvas.height - 130);
         }
         setTimeout(drawPost, 500);
 
         function downloadPost() {
-            const link = document.createElement('a'); link.download = 'sn-beautynails-post.png';
+            const link = document.createElement('a'); link.download = 'sn-pro-post.png';
             link.href = canvas.toDataURL("image/png"); link.click();
         }
     </script>
 
-    <!-- FİREBASE BAĞLANTISI (TAMAMLANDI) -->
+    <!-- FİREBASE BAĞLANTISI VE AKILLI İŞLEMLER -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, orderBy, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
+        // Senin Bilgilerin
         const firebaseConfig = {
             apiKey: "AIzaSyDTPjmpnp7fD3LDRGekS1jZL-_yZI1JqTk",
             authDomain: "sn-beautynails.firebaseapp.com",
@@ -189,46 +275,115 @@
             console.error("Firebase başlatılamadı:", error);
         }
 
-        window.randevulariGetir = async function() {
-            const liste = document.getElementById('randevuListesi');
-            
-            if(!db) {
-                liste.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Bağlantı Kurulamadı!</td></tr>';
-                return;
-            }
+        // FİYAT VE MALİYET ALGORİTMASI (Senin listene göre)
+        const fiyatListesi = {
+            'Sıfırdan Jel Protez': { ciro: 1200, maliyet: 250 },
+            'Jel Protez Bakımı': { ciro: 850, maliyet: 150 },
+            'Protez Çıkarma': { ciro: 450, maliyet: 50 },
+            'Kalıcı Oje': { ciro: 600, maliyet: 100 },
+            'Ombre / French Tasarım': { ciro: 800, maliyet: 120 },
+            'Nail Art': { ciro: 50, maliyet: 10 }
+        };
 
-            liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Veriler Firebase üzerinden yükleniyor...</td></tr>';
+        window.randevulariGetir = async function() {
+            const aktifListe = document.getElementById('aktifRandevuListesi');
+            const gecmisListe = document.getElementById('gecmisRandevuListesi');
+            
+            if(!db) return;
+            aktifListe.innerHTML = '<tr><td colspan="6" style="text-align:center;">Veriler Firebase üzerinden yükleniyor...</td></tr>';
+            gecmisListe.innerHTML = '';
             
             try {
                 const q = query(collection(db, "randevular"), orderBy("zaman", "desc"));
                 const querySnapshot = await getDocs(q);
                 
-                liste.innerHTML = ""; 
+                aktifListe.innerHTML = ""; 
                 
-                if(querySnapshot.empty) {
-                    liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Henüz hiç randevu yok.</td></tr>';
-                    return;
-                }
+                // Finansal Veri Değişkenleri
+                let topCiro = 0, topMaliyet = 0;
+                let aylikCiroArray = new Array(12).fill(0);
+                let aylikMaliyetArray = new Array(12).fill(0);
 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const tr = document.createElement('tr');
+                querySnapshot.forEach((documentObj) => {
+                    const data = documentObj.data();
+                    const docId = documentObj.id; // Güncelleme işlemi için Firebase ID'si
+                    const islemAdi = data.islem || '';
+                    const durum = data.durum || 'yeni'; // Eğer durum yoksa yeni kabul et
                     
+                    // Telefon Linki Formatlama
                     let telLink = data.telefon ? data.telefon.replace(/[^0-9]/g, '') : '';
                     if(telLink.startsWith('0')) telLink = '90' + telLink.substring(1);
 
-                    tr.innerHTML = `
-                        <td><strong>${data.isim || '-'}</strong></td>
-                        <td><a href="https://wa.me/${telLink}" target="_blank" style="color:#d81b60; text-decoration:none; font-weight:600;">${data.telefon || '-'}</a></td>
-                        <td>${data.islem || '-'}</td>
-                        <td>${data.tarih || '-'}</td>
-                        <td><span class="status-badge">Yeni</span></td>
-                    `;
-                    liste.appendChild(tr);
+                    const tr = document.createElement('tr');
+                    
+                    // Finansal Hesaplama (Sadece tamamlanmış işlemlerden veya tümünden ciro hesaplanabilir. Biz hepsini gerçek paraya dökelim)
+                    let islemFiyat = fiyatListesi[islemAdi] || { ciro: 500, maliyet: 100 }; // Eşleşmezse varsayılan
+                    topCiro += islemFiyat.ciro;
+                    topMaliyet += islemFiyat.maliyet;
+                    
+                    // Aylık Grafik İçin Gruplama
+                    if(data.tarih) {
+                        let islemAyi = new Date(data.tarih).getMonth(); // 0 (Ocak) - 11 (Aralık)
+                        if(!isNaN(islemAyi)) {
+                            aylikCiroArray[islemAyi] += islemFiyat.ciro;
+                            aylikMaliyetArray[islemAyi] += islemFiyat.maliyet;
+                        }
+                    }
+
+                    if(durum === 'yeni') {
+                        // AKTİF TABLOYA YAZDIR
+                        tr.innerHTML = `
+                            <td><strong>${data.isim || '-'}</strong></td>
+                            <td><a href="https://wa.me/${telLink}" target="_blank" style="color:#d81b60; text-decoration:none; font-weight:600;">${data.telefon || '-'}</a></td>
+                            <td>${islemAdi}</td>
+                            <td>${data.tarih || '-'}</td>
+                            <td><span class="status-badge status-yeni">Bekliyor</span></td>
+                            <td><button class="btn-action" onclick="islemTamamla('${docId}')">✔ Tamamla</button></td>
+                        `;
+                        aktifListe.appendChild(tr);
+                    } else {
+                        // GEÇMİŞ TABLOYA YAZDIR (Aksiyon butonu yok)
+                        tr.innerHTML = `
+                            <td><strong>${data.isim || '-'}</strong></td>
+                            <td>${data.telefon || '-'}</td>
+                            <td>${islemAdi}</td>
+                            <td>${data.tarih || '-'}</td>
+                            <td><span class="status-badge status-tamam">Tamamlandı</span></td>
+                        `;
+                        gecmisListe.appendChild(tr);
+                    }
                 });
+
+                if(aktifListe.innerHTML === "") aktifListe.innerHTML = '<tr><td colspan="6" style="text-align:center;">Bekleyen aktif randevu yok.</td></tr>';
+                if(gecmisListe.innerHTML === "") gecmisListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Henüz tamamlanmış işlem yok.</td></tr>';
+
+                // FİNANS VERİLERİNİ EKRANA YANSIT
+                document.getElementById('valCiro').innerText = `₺${topCiro.toLocaleString('tr-TR')}`;
+                document.getElementById('valMaliyet').innerText = `₺${topMaliyet.toLocaleString('tr-TR')}`;
+                document.getElementById('valKar').innerText = `₺${(topCiro - topMaliyet).toLocaleString('tr-TR')}`;
+
+                // GRAFİĞİ GÜNCELLE
+                financeChart.data.datasets[0].data = aylikCiroArray;
+                financeChart.data.datasets[1].data = aylikMaliyetArray;
+                financeChart.update();
+
             } catch (error) {
                 console.error("Veri çekme hatası: ", error);
-                liste.innerHTML = `<tr><td colspan="5" style="color:red; text-align:center;">Bağlantı Hatası. Veritabanını Firestore panelinden Test Modunda başlattığınıza emin olun.</td></tr>`;
+            }
+        }
+
+        // İŞLEMİ TAMAMLA VE ARŞİVE TAŞI FONKSİYONU
+        window.islemTamamla = async function(id) {
+            if(confirm("Bu işlemi tamamlandı olarak işaretleyip arşive taşımak istediğinize emin misiniz?")) {
+                try {
+                    await updateDoc(doc(db, "randevular", id), {
+                        durum: 'tamamlandi'
+                    });
+                    // Tabloyu otomatik yenile
+                    window.randevulariGetir();
+                } catch (e) {
+                    alert("Güncelleme başarısız oldu. Hata: " + e.message);
+                }
             }
         }
 
