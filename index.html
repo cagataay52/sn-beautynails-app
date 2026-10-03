@@ -16,15 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --accent: #d81b60;
-            --bg-dark: #000000;
-            --surface: rgba(28, 28, 30, 0.65);
-            --border: rgba(255, 255, 255, 0.12);
-            --text-main: #ffffff;
-            --text-muted: #8e8e93;
-        }
-
+        :root { --accent: #d81b60; --bg-dark: #000000; --surface: rgba(28, 28, 30, 0.65); --border: rgba(255, 255, 255, 0.12); --text-main: #ffffff; --text-muted: #8e8e93; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; width: 100%; min-height: 100dvh; }
 
@@ -64,11 +56,8 @@
         .story-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 3px; overflow: hidden; }
         .story-progress-fill { height: 100%; background: #fff; width: 0%; }
         .story-close { position: absolute; top: calc(env(safe-area-inset-top, 20px) + 20px); right: 20px; color: #fff; font-size: 35px; z-index: 2; cursor: pointer; line-height: 1; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-        
-        /* HİKAYE KALİTESİ VE BOYUTU DÜZELTMESİ (CONTAIN) */
         .story-content { flex: 1; position: relative; display: flex; align-items: flex-end; padding: 40px 20px; background-size: contain; background-repeat: no-repeat; background-position: center; border-radius: 0; }
         .story-content::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(transparent, rgba(0,0,0,0.95)); z-index: 0; }
-        
         .story-info { position: relative; z-index: 1; width: 100%; text-align: center; padding-bottom: env(safe-area-inset-bottom, 20px); }
         .story-info h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 2.2rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
         .swipe-up-btn { background: var(--text-main); color: var(--bg-dark); padding: 16px 35px; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 13px; border: none; cursor: pointer; letter-spacing: 1px; }
@@ -109,11 +98,15 @@
         .price-row { display: flex; justify-content: space-between; padding-bottom: 20px; color: var(--text-muted); font-size: 0.95rem; align-items: center; }
         .price-row span:last-child { color: var(--text-main); font-weight: 500; font-size: 1rem; }
 
+        /* MAĞAZA (SHOP) GRID VE YÖNLENDİRME BUTONU */
         .product-card { background: var(--surface); border: 1px solid var(--border); padding: 20px; text-align: center; border-radius: 32px; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); display: flex; flex-direction: column; justify-content: space-between; width: 100%; }
         .product-card img { width: 100%; height: 220px; object-fit: contain; background: #fff; margin-bottom: 20px; border-radius: 20px; }
         .product-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
         .product-info .price { color: var(--accent); font-size: 1.2rem; margin-bottom: 20px; display: block; font-weight: 500; }
         .add-to-cart { background: var(--text-main); color: var(--bg-dark); border: none; padding: 16px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 13px; width: 100%; margin-top: auto; }
+        
+        .view-all-shop-btn { display: block; width: 100%; max-width: 400px; margin: 40px auto 0; padding: 18px 30px; text-align: center; background: transparent; border: 1px solid var(--accent); color: var(--accent); border-radius: 30px; font-weight: 600; text-decoration: none; transition: 0.3s; font-size: 14px; }
+        .view-all-shop-btn:hover { background: var(--accent); color: var(--text-main); box-shadow: 0 0 20px rgba(216,27,96,0.3); }
 
         .form-container { max-width: 600px; margin: 0 auto; background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); }
         .input-box { margin-bottom: 20px; }
@@ -121,7 +114,15 @@
         .input-box input:focus { border-color: var(--accent); background: rgba(0,0,0,0.7); }
         .input-box input::placeholder { color: #666; }
         .input-box input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; cursor: pointer; }
-        .submit-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 20px; font-size: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; margin-top: 10px; letter-spacing: 1px; }
+        
+        .time-slots-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-top: 15px; margin-bottom: 20px; }
+        .time-slot { background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: var(--text-main); padding: 15px 0; border-radius: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; text-align: center; font-size: 14px; }
+        .time-slot:hover:not(.disabled) { border-color: var(--accent); }
+        .time-slot.selected { background: var(--accent); color: var(--text-main); border-color: var(--accent); }
+        .time-slot.disabled { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.2); text-decoration: line-through; cursor: not-allowed; border-color: transparent; }
+
+        .submit-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 20px; font-size: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; margin-top: 10px; letter-spacing: 1px; transition: 0.3s; }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .ios-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
         .ios-alert-overlay.show { display: flex; opacity: 1; }
@@ -203,7 +204,6 @@
         </div>
     </div>
 
-    <!-- HİKAYELER -->
     <div class="stories-section">
         <div class="stories-wrapper" id="storiesWrapper">
             <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&w=800&q=80', 'Örnek Hikaye', 'Kalıcı Oje')">
@@ -272,18 +272,16 @@
         </div>
     </section>
 
-    <!-- MAĞAZA (DİNAMİK) -->
+    <!-- ANA SAYFA MAĞAZA (SADECE 3 ÜRÜN) -->
     <section id="magaza">
-        <div class="section-header"><span>Premium</span><h2>Evde Bakım</h2></div>
+        <div class="section-header"><span>Premium</span><h2>Evde Bakım Vitrini</h2></div>
         <div class="shop-grid" id="shopGridWrapper">
-            <div class="product-card">
-                <div class="product-img-box"><img src="https://images.unsplash.com/photo-1615397323214-ba367c74fba6?ixlib=rb-4.0.3&w=500&q=80" alt="Kütikül Yağı"></div>
-                <div class="product-info"><h3>Özel Kütikül Yağı</h3><span class="price">250 TL</span></div>
-                <button class="add-to-cart" onclick="sepeteEkle('Özel Kütikül Yağı', 250, this)">Sepete Ekle</button>
-            </div>
+            <span style="color:#888; text-align:center; width:100%; display:block;">Ürünler yükleniyor...</span>
         </div>
+        <a href="shop.html" class="view-all-shop-btn">Daha Fazla Evde Bakım Ürünü Keşfet →</a>
     </section>
 
+    <!-- RANDEVU -->
     <section id="randevu">
         <div class="section-header"><span>Zamanınızı</span><h2>Rezerve Edin</h2></div>
         <div class="form-container">
@@ -291,7 +289,16 @@
                 <div class="input-box"><input type="text" id="name" required placeholder="Adınız ve Soyadınız"></div>
                 <div class="input-box"><input type="tel" id="phone" required placeholder="Telefon Numaranız"></div>
                 <div class="input-box"><input type="text" id="serviceInput" required placeholder="İstediğiniz İşlem (Örn: Kalıcı Oje)"></div>
-                <div class="input-box"><input type="date" id="date" required></div>
+                <div class="input-box">
+                    <input type="date" id="date" required>
+                </div>
+                
+                <div id="timeSlotsSection" style="display:none;">
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; font-weight: 500;">Uygun Saatler:</p>
+                    <div class="time-slots-container" id="timeSlotsContainer"></div>
+                </div>
+
+                <input type="hidden" id="selectedTime" required>
                 <button type="submit" class="submit-btn" id="submitBtn">Randevuyu Onayla</button>
             </form>
         </div>
@@ -303,7 +310,6 @@
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 2.4c-7.6 0-13.8 6.2-13.8 13.8 0 2.4.6 4.8 1.8 6.9l-2 7.3 7.5-2c2.1 1.1 4.4 1.7 6.8 1.7 7.6 0 13.8-6.2 13.8-13.8S24.2 2.4 16.6 2.4zm0 25c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.5c-1.1-1.7-1.7-3.8-1.7-5.9 0-6.3 5.1-11.4 11.4-11.4s11.4 5.1 11.4 11.4-5.1 11.3-11.4 11.3zm6.2-8.4c-.3-.2-2-.1-2.3-.9-.1-.2-.2-.3-.3-.5-.2-.3-.4-.5-.7-.5-.2 0-.4.1-.5.3l-.7.9c-.2.2-.4.2-.7.1-1.6-.7-2.7-1.4-3.8-2.6-.8-.9-1.3-1.8-1.7-2.8-.1-.3 0-.5.2-.6l.5-.6c.2-.2.3-.4.3-.7 0-.2-.1-.5-.2-.7-.3-.8-1.2-2.9-1.6-3.9-.4-1-.8-1-1.1-1h-.9c-.3 0-.8.1-1.2.6-.4.5-1.5 1.5-1.5 3.6s1.6 4.1 1.8 4.4c.2.3 3 4.6 7.3 6.4 1 .4 1.8.7 2.5.9.9.3 1.9.2 2.6.1.8-.1 2.5-1 2.8-2 .4-1 .4-1.9.3-2.1-.2-.2-.5-.3-.9-.5z"/></svg>
     </a>
 
-    <!-- iOS TARZI UYARI MODALI -->
     <div class="ios-alert-overlay" id="iosAlertOverlay">
         <div class="ios-alert-box">
             <div class="ios-alert-content">
@@ -314,67 +320,76 @@
         </div>
     </div>
 
+    <!-- SEPET SİSTEMİ DÜZELTİLDİ -->
     <script>
         function toggleMenu() { document.getElementById('navWrapper').classList.toggle('menu-open'); }
         function toggleAcc(btn) {
-            const content = btn.nextElementSibling;
-            const sign = btn.querySelector('span');
+            const content = btn.nextElementSibling; const sign = btn.querySelector('span');
             if (content.style.maxHeight) { content.style.maxHeight = null; sign.innerText = "+"; } 
             else { document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null); document.querySelectorAll('.accordion-header span').forEach(el => el.innerText = "+"); content.style.maxHeight = content.scrollHeight + "px"; sign.innerText = "–"; }
         }
         function scrollToRandevu(islem) { document.getElementById('serviceInput').value = islem; document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' }); }
-
         function showIOSAlert(title, msg) {
-            document.getElementById('iosAlertTitle').innerText = title;
-            document.getElementById('iosAlertMsg').innerText = msg;
-            const overlay = document.getElementById('iosAlertOverlay');
-            overlay.style.display = 'flex';
-            setTimeout(() => overlay.classList.add('show'), 10);
+            document.getElementById('iosAlertTitle').innerText = title; document.getElementById('iosAlertMsg').innerText = msg;
+            const overlay = document.getElementById('iosAlertOverlay'); overlay.style.display = 'flex'; setTimeout(() => overlay.classList.add('show'), 10);
         }
         function closeIOSAlert() {
-            const overlay = document.getElementById('iosAlertOverlay');
-            overlay.classList.remove('show');
-            setTimeout(() => overlay.style.display = 'none', 300);
+            const overlay = document.getElementById('iosAlertOverlay'); overlay.classList.remove('show'); setTimeout(() => overlay.style.display = 'none', 300);
         }
 
         let storyTimer; let selectedService = '';
         window.openStory = function(imgUrl, title, service) {
             const modal = document.getElementById('storyModal');
             document.getElementById('storyContent').style.backgroundImage = `url(${imgUrl})`;
-            document.getElementById('storyTitle').innerText = title;
-            selectedService = service;
+            document.getElementById('storyTitle').innerText = title; selectedService = service;
             modal.classList.add('active');
-            
-            const progress = document.getElementById('storyProgress');
-            progress.style.transition = 'none'; progress.style.width = '0%';
+            const progress = document.getElementById('storyProgress'); progress.style.transition = 'none'; progress.style.width = '0%';
             setTimeout(() => { progress.style.transition = 'width 5s linear'; progress.style.width = '100%'; }, 50);
             storyTimer = setTimeout(closeStory, 5000);
         }
         function closeStory() { document.getElementById('storyModal').classList.remove('active'); clearTimeout(storyTimer); }
         window.storyToBooking = function() { closeStory(); scrollToRandevu(selectedService); }
 
-        let sepet = []; let toplamTutar = 0;
-        window.sepeteEkle = function(urunAdi, fiyat, btn) {
-            sepet.push({isim: urunAdi, fiyat: fiyat}); toplamTutar += fiyat;
+        // LocalStorage ile Sepet Yönetimi (Sayfa değiştirilse bile sepet silinmez)
+        let sepet = JSON.parse(localStorage.getItem('sn_sepet')) || []; 
+        let toplamTutar = sepet.reduce((sum, urun) => sum + urun.fiyat, 0);
+
+        function sepetiGuncelleUI() {
             document.getElementById('cartCount').innerText = sepet.length;
             document.getElementById('cartCountMobile').innerText = sepet.length;
-            let orijinalMetin = btn.innerText; btn.innerText = "Eklendi ✓"; btn.style.background = "var(--text-main)"; btn.style.color = "var(--bg-dark)";
-            setTimeout(() => { btn.innerText = orijinalMetin; btn.style.background = "var(--text-main)"; btn.style.color = "var(--bg-dark)"; }, 1500);
         }
-        function sepetiGoster() {
+        sepetiGuncelleUI();
+
+        window.sepeteEkle = function(urunAdi, fiyat, btn) {
+            sepet.push({isim: urunAdi, fiyat: parseFloat(fiyat)});
+            toplamTutar += parseFloat(fiyat);
+            localStorage.setItem('sn_sepet', JSON.stringify(sepet));
+            sepetiGuncelleUI();
+            
+            let orijinalMetin = btn.innerText; 
+            btn.innerText = "Eklendi ✓"; 
+            btn.style.background = "var(--text-main)"; 
+            btn.style.color = "var(--bg-dark)";
+            setTimeout(() => { btn.innerText = orijinalMetin; btn.style.background = "var(--accent)"; btn.style.color = "var(--text-main)"; }, 1500);
+        }
+
+        window.sepetiGoster = function() {
             if(sepet.length === 0) { showIOSAlert("Sepetiniz Boş", "Lütfen mağazadan ürün ekleyin."); } else {
                 let mesaj = "Sepetinizdekiler:\n";
                 sepet.forEach(urun => mesaj += `- ${urun.isim} (${urun.fiyat} TL)\n`);
-                mesaj += `\nToplam: ${toplamTutar} TL\nWhatsApp'tan sipariş vermek ister misiniz?`;
-                if(confirm(mesaj)) { window.open(`https://wa.me/905551234567?text=Merhaba, şu ürünleri sipariş vermek istiyorum: ${sepet.map(u=>u.isim).join(', ')}`, '_blank'); }
+                mesaj += `\nToplam: ${toplamTutar} TL\n\nWhatsApp'tan sipariş vermek ister misiniz?`;
+                if(confirm(mesaj)) { 
+                    window.open(`https://wa.me/905551234567?text=Merhaba, şu ürünleri sipariş vermek istiyorum: ${sepet.map(u=>u.isim).join(', ')}. Toplam: ${toplamTutar} TL`, '_blank'); 
+                    sepet = []; localStorage.removeItem('sn_sepet'); sepetiGuncelleUI();
+                }
             }
         }
     </script>
 
-    <!-- FİREBASE VERİ ÇEKME -->
+    <!-- FİREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTPjmpnp7fD3LDRGekS1jZL-_yZI1JqTk",
@@ -386,22 +401,16 @@
             measurementId: "G-59DLV5MZGF"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig); const db = getFirestore(app);
 
         async function loadStories() {
             try {
                 const snap = await getDocs(query(collection(db, "hikayeler"), orderBy("zaman", "desc")));
                 if(!snap.empty) {
-                    const wrapper = document.getElementById('storiesWrapper');
-                    wrapper.innerHTML = "";
+                    const wrapper = document.getElementById('storiesWrapper'); wrapper.innerHTML = "";
                     snap.forEach(doc => {
                         const d = doc.data();
-                        wrapper.innerHTML += `
-                        <div class="story-item" onclick="openStory('${d.resim}', '${d.baslik}', '${d.islem}')">
-                            <div class="story-ring"><div class="story-image-container"><img src="${d.resim}" alt="Story"></div></div>
-                            <span class="story-title">${d.baslik}</span>
-                        </div>`;
+                        wrapper.innerHTML += `<div class="story-item" onclick="openStory('${d.resim}', '${d.baslik}', '${d.islem}')"><div class="story-ring"><div class="story-image-container"><img src="${d.resim}" alt="Story"></div></div><span class="story-title">${d.baslik}</span></div>`;
                     });
                 }
             } catch (e) { console.log(e); }
@@ -411,65 +420,78 @@
             try {
                 const snap = await getDocs(query(collection(db, "sosyal_akis"), orderBy("zaman", "desc")));
                 if(!snap.empty) {
-                    const wrapper = document.getElementById('socialFeedWrapper');
-                    wrapper.innerHTML = "";
+                    const wrapper = document.getElementById('socialFeedWrapper'); wrapper.innerHTML = "";
                     snap.forEach(doc => {
                         const d = doc.data();
-                        wrapper.innerHTML += `
-                        <div class="feed-card">
-                            <img src="${d.resim}" alt="${d.baslik}">
-                            <div class="feed-overlay">
-                                <p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">${d.baslik}</p>
-                                <button class="book-this-btn" onclick="scrollToRandevu('${d.islem}')">Bunu Yaptır</button>
-                            </div>
-                        </div>`;
+                        wrapper.innerHTML += `<div class="feed-card"><img src="${d.resim}" alt="${d.baslik}"><div class="feed-overlay"><p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">${d.baslik}</p><button class="book-this-btn" onclick="scrollToRandevu('${d.islem}')">Bunu Yaptır</button></div></div>`;
                     });
                 }
             } catch (e) { console.log(e); }
         }
 
-        async function loadShop() {
+        // MAĞAZA VİTRİNİ (SADECE SON 3 ÜRÜN)
+        async function loadShopVitrin() {
             try {
-                const snap = await getDocs(query(collection(db, "urunler"), orderBy("zaman", "desc")));
+                const snap = await getDocs(query(collection(db, "urunler"), orderBy("zaman", "desc"), limit(3)));
+                const wrapper = document.getElementById('shopGridWrapper');
                 if(!snap.empty) {
-                    const wrapper = document.getElementById('shopGridWrapper');
                     wrapper.innerHTML = "";
                     snap.forEach(doc => {
                         const d = doc.data();
-                        wrapper.innerHTML += `
-                        <div class="product-card">
-                            <div class="product-img-box"><img src="${d.resim}" alt="${d.isim}"></div>
-                            <div class="product-info"><h3>${d.isim}</h3><span class="price">${d.fiyat} TL</span></div>
-                            <button class="add-to-cart" onclick="sepeteEkle('${d.isim}', ${d.fiyat}, this)">Sepete Ekle</button>
-                        </div>`;
+                        wrapper.innerHTML += `<div class="product-card"><div class="product-img-box"><img src="${d.resim}" alt="${d.isim}"></div><div class="product-info"><h3>${d.isim}</h3><span class="price">${d.fiyat} TL</span></div><button class="add-to-cart" onclick="sepeteEkle('${d.isim}', ${d.fiyat}, this)">Sepete Ekle</button></div>`;
                     });
+                } else {
+                    wrapper.innerHTML = "<span style='color:#888;'>Henüz ürün eklenmedi.</span>";
                 }
             } catch (e) { console.log(e); }
         }
 
-        loadStories(); loadFeed(); loadShop();
+        loadStories(); loadFeed(); loadShopVitrin();
 
+        // SAAT SLOTLARI
+        const allTimeSlots = ["10:00", "11:30", "13:00", "14:30", "16:00", "17:30", "19:00"];
+        document.getElementById('date').addEventListener('change', async function(e) {
+            const selectedDate = e.target.value; if(!selectedDate) return;
+            document.getElementById('timeSlotsSection').style.display = 'block';
+            const container = document.getElementById('timeSlotsContainer');
+            container.innerHTML = '<span style="color:#aaa; font-size:12px;">Müsaitlik kontrol ediliyor...</span>';
+            document.getElementById('selectedTime').value = ""; 
+
+            try {
+                const q = query(collection(db, "randevular"), where("tarih", "==", selectedDate));
+                const snap = await getDocs(q);
+                let doluSaatler = []; snap.forEach(doc => { const data = doc.data(); if(data.saat && data.durum !== 'iptal') doluSaatler.push(data.saat); });
+
+                container.innerHTML = '';
+                allTimeSlots.forEach(saat => {
+                    const slot = document.createElement('div'); slot.classList.add('time-slot'); slot.innerText = saat;
+                    if(doluSaatler.includes(saat)) { slot.classList.add('disabled'); slot.innerText = saat + " (Dolu)"; } 
+                    else {
+                        slot.addEventListener('click', function() {
+                            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+                            this.classList.add('selected'); document.getElementById('selectedTime').value = saat;
+                        });
+                    }
+                    container.appendChild(slot);
+                });
+            } catch (error) { container.innerHTML = '<span style="color:red; font-size:12px;">Bağlantı hatası.</span>'; }
+        });
+
+        // RANDEVU KAYIT
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "İşleniyor...";
-            
+            const selectedTime = document.getElementById('selectedTime').value;
+            if(!selectedTime) { showIOSAlert("Saat Seçmediniz", "Lütfen yukarıdaki uygun saat dilimlerinden birini seçin."); return; }
+            const btn = document.getElementById('submitBtn'); const originalText = btn.innerText; btn.innerText = "İşleniyor..."; btn.disabled = true;
             try {
                 await addDoc(collection(db, "randevular"), {
-                    isim: document.getElementById('name').value,
-                    telefon: document.getElementById('phone').value,
-                    islem: document.getElementById('serviceInput').value,
-                    tarih: document.getElementById('date').value,
-                    durum: 'yeni',
-                    zaman: serverTimestamp()
+                    isim: document.getElementById('name').value, telefon: document.getElementById('phone').value,
+                    islem: document.getElementById('serviceInput').value, tarih: document.getElementById('date').value, saat: selectedTime, durum: 'yeni', zaman: serverTimestamp()
                 });
-                showIOSAlert("Randevunuz Alındı", "Talebiniz bize ulaştı. En kısa sürede sizinle iletişime geçeceğiz. Teşekkürler!");
-                e.target.reset();
-            } catch (error) {
-                showIOSAlert("Hata Oluştu", "Randevu oluşturulamadı. Lütfen WhatsApp'tan ulaşın.");
-            }
-            btn.innerText = originalText;
+                showIOSAlert("Randevunuz Onaylandı", "Talebiniz başarıyla alındı. Sizi " + document.getElementById('date').value + " günü saat " + selectedTime + " sularında stüdyomuzda ağırlamaktan mutluluk duyacağız!");
+                e.target.reset(); document.getElementById('timeSlotsSection').style.display = 'none'; document.getElementById('selectedTime').value = "";
+            } catch (error) { showIOSAlert("Hata Oluştu", "Lütfen WhatsApp'tan ulaşın."); }
+            btn.innerText = originalText; btn.disabled = false;
         });
     </script>
 </body>
