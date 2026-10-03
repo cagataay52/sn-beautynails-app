@@ -10,7 +10,6 @@
     <style>
         :root { --accent: #d81b60; --bg-dark: #000000; --surface: rgba(28, 28, 30, 0.65); --border: rgba(255, 255, 255, 0.12); --text-main: #ffffff; --text-muted: #8e8e93; }
         
-        /* ÇİFT TIKLAMA ZOOM İPTALİ (TÜM SİTE) */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; width: 100%; min-height: 100dvh; }
 
@@ -19,7 +18,6 @@
         .glow-2 { top: 40%; right: -20%; width: 70vw; height: 70vw; background: #6b002b; opacity: 0.5; filter: blur(130px); }
         .glow-3 { bottom: -10%; left: 10%; width: 70vw; height: 70vw; background: #9c1c54; opacity: 0.5; filter: blur(120px); }
 
-        /* YENİDEN YAPILANDIRILMIŞ KUSURSUZ NAVBAR */
         .nav-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 1200px; z-index: 1000; }
         header { display: flex; justify-content: space-between; align-items: center; background: rgba(20, 20, 22, 0.75); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid var(--border); border-radius: 40px; padding: 12px 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
         
@@ -40,7 +38,6 @@
         .nav-wrapper.menu-open .mobile-nav-container { max-height: 400px; padding: 20px; opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
         .mobile-nav-container a { display: block; width: 100%; text-align: center; margin: 15px 0; font-size: 15px; color: var(--text-muted); text-decoration: none; font-weight: 500; }
 
-        /* HİKAYELER - EN ÜSTE SABİTLENDİ (MARGIN İLE) */
         .stories-section { margin-top: 110px; width: 100%; position: relative; z-index: 2; display: block; }
         .stories-wrapper { display: flex; gap: 20px; overflow-x: auto; padding: 10px 5% 20px 5%; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
         .stories-wrapper::-webkit-scrollbar { display: none; }
@@ -51,7 +48,6 @@
         .story-item:active .story-ring { transform: scale(0.92); }
         .story-title { display: block; text-align: center; font-size: 11.5px; margin-top: 8px; color: #eeeeee; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; letter-spacing: 0.3px; }
 
-        /* HİKAYE MODAL */
         .story-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .story-modal.active { display: flex; opacity: 1; }
         .story-progress-container { display: flex; gap: 5px; padding: 15px; padding-top: max(20px, env(safe-area-inset-top)); position: absolute; top: 0; width: 100%; z-index: 2; }
@@ -64,7 +60,6 @@
         .story-info h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 2.2rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
         .swipe-up-btn { background: var(--text-main); color: var(--bg-dark); padding: 16px 35px; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 13px; border: none; cursor: pointer; letter-spacing: 1px; }
 
-        /* HERO & ORTAK (GEREKSİZ NEGATİF MARJLAR KALDIRILDI) */
         .hero { min-height: 45vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding: 40px 5%; margin-top: 10px; }
         .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; background: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; opacity: 0.35; -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%); }
         .hero-content { position: relative; z-index: 1; }
@@ -78,9 +73,24 @@
         .section-header h2 { font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; }
 
         .services-grid, .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .glass-card { background: var(--surface); backdrop-filter: blur(30px); border: 1px solid var(--border); padding: 40px 30px; text-align: center; border-radius: 32px; width: 100%; transition: 0.3s; }
+        .glass-card { background: var(--surface); backdrop-filter: blur(30px); border: 1px solid var(--border); padding: 40px 30px; text-align: center; border-radius: 32px; width: 100%; transition: 0.3s; position: relative; overflow: hidden;}
         .glass-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
         .glass-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* YAPAY ZEKA KAMERA BOTUNU (YENİ) */
+        .ai-cam-btn { background: linear-gradient(45deg, #1e1e1e, #000); border: 1px solid var(--accent); color: var(--text-main); width: 100%; max-width: 300px; margin: 0 auto 50px; padding: 20px; border-radius: 30px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 15px; cursor: pointer; box-shadow: 0 0 30px rgba(216,27,96,0.2); transition: 0.3s; }
+        .ai-cam-btn:active { transform: scale(0.95); }
+        .ai-cam-btn svg { width: 24px; height: 24px; fill: var(--accent); }
+        
+        .ai-camera-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10005; display: none; flex-direction: column; align-items: center; justify-content: center; }
+        #aiVideo { width: 100%; max-width: 500px; height: auto; border-radius: 30px; border: 2px solid var(--accent); object-fit: cover; }
+        .ai-overlay-box { position: absolute; width: 250px; height: 350px; border: 2px dashed rgba(255,255,255,0.5); border-radius: 20px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.6); pointer-events: none; }
+        .ai-scan-line { width: 100%; height: 2px; background: var(--accent); position: absolute; top: 0; left: 0; animation: scan 2s linear infinite; box-shadow: 0 0 10px var(--accent); }
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+        .ai-close { position: absolute; top: 30px; right: 30px; color: #fff; font-size: 30px; cursor: pointer; z-index: 10006; }
+        .ai-result-text { position: absolute; bottom: 50px; text-align: center; width: 100%; padding: 0 20px; z-index: 10006; }
+        .ai-result-text h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; color: var(--accent); }
+        .ai-result-text p { font-size: 1rem; color: #ddd; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 15px; border: 1px solid var(--border); display: inline-block;}
 
         .social-feed-container { width: 100vw; margin-left: calc(-50vw + 50%); position: relative; } 
         .social-feed { display: flex; overflow-x: auto; gap: 20px; padding: 10px 5% 30px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
@@ -109,7 +119,6 @@
         .view-all-shop-btn { display: block; width: 100%; max-width: 400px; margin: 40px auto 0; padding: 18px 30px; text-align: center; background: transparent; border: 1px solid var(--accent); color: var(--accent); border-radius: 30px; font-weight: 600; text-decoration: none; transition: 0.3s; font-size: 14px; }
         .view-all-shop-btn:hover { background: var(--accent); color: var(--text-main); box-shadow: 0 0 20px rgba(216,27,96,0.3); }
 
-        /* RANDEVU FORMU VE SAAT SLOTLARI */
         .form-container { max-width: 600px; margin: 0 auto; background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); backdrop-filter: blur(30px); }
         .input-box { margin-bottom: 20px; }
         .input-box input { width: 100%; padding: 18px 20px; font-size: 1rem; color: var(--text-main); border: 1px solid var(--border); border-radius: 18px; outline: none; background: rgba(0,0,0,0.4); font-family: 'Inter', sans-serif; transition: 0.3s; }
@@ -126,7 +135,6 @@
         .submit-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 20px; font-size: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; margin-top: 10px; letter-spacing: 1px; transition: 0.3s; }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* SEPET YAN MENÜSÜ */
         .cart-sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999; display: none; opacity: 0; transition: 0.3s; }
         .cart-sidebar { position: fixed; top: 0; right: -400px; width: 350px; max-width: 100%; height: 100%; background: rgba(20,20,22,0.95); backdrop-filter: blur(30px); border-left: 1px solid var(--border); z-index: 10000; transition: right 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1); display: flex; flex-direction: column; }
         .cart-sidebar.open { right: 0; }
@@ -141,7 +149,6 @@
         .cart-total-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
         .checkout-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 18px; font-weight: 600; border-radius: 20px; cursor: pointer; font-size: 14px; }
 
-        /* SİPARİŞ ÖDEME MODALI */
         .checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10005; display: none; align-items: center; justify-content: center; }
         .checkout-box { background: rgba(28,28,30,0.95); border: 1px solid var(--border); width: 90%; max-width: 450px; border-radius: 24px; padding: 30px; }
         .checkout-box h3 { margin-bottom: 20px; text-align: center; }
@@ -152,7 +159,18 @@
         .btn-cancel { background: rgba(255,255,255,0.1); color: white; }
         .btn-confirm { background: var(--accent); color: white; }
 
-        /* UYARI MODALI */
+        /* YENİ: 3D KUTU AÇILIMI (SİPARİŞ ONAY EFEKTİ) */
+        .box-animation-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 30000; display:none; align-items:center; justify-content:center; flex-direction: column; }
+        .gift-box { width: 120px; height: 120px; background: #111; border: 2px solid var(--accent); position: relative; border-radius: 10px; transform-style: preserve-3d; animation: boxDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .gift-lid { width: 130px; height: 30px; background: var(--accent); position: absolute; top: -15px; left: -7px; border-radius: 5px; transform-origin: top; animation: lidClose 0.5s 1.5s forwards; z-index: 2; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .gift-seal { width: 40px; height: 40px; background: #fff; border-radius: 50%; position: absolute; top: 10px; left: 45px; display: flex; align-items:center; justify-content:center; font-family: 'Dancing Script'; color: #000; font-weight:bold; font-size:20px; opacity:0; animation: sealStamp 0.3s 2s forwards; z-index: 3;}
+        .box-text { margin-top: 50px; font-family: 'Playfair Display'; font-size: 24px; color: #fff; opacity:0; animation: textFade 1s 2.5s forwards; text-align: center; }
+        
+        @keyframes boxDrop { 0% { transform: translateY(-500px) scale(0.5); opacity:0;} 100% { transform: translateY(0) scale(1); opacity:1;} }
+        @keyframes lidClose { 0% { transform: translateY(-40px) rotateX(90deg); } 100% { transform: translateY(0) rotateX(0deg); } }
+        @keyframes sealStamp { 0% { transform: scale(3); opacity:0; } 100% { transform: scale(1); opacity:1; } }
+        @keyframes textFade { 0% { opacity:0; transform: translateY(20px);} 100% { opacity:1; transform: translateY(0);} }
+
         .ios-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 20000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
         .ios-alert-overlay.show { display: flex; opacity: 1; }
         .ios-alert-box { background: rgba(28,28,30,0.92); border: 1px solid rgba(255,255,255,0.15); width: 290px; border-radius: 16px; text-align: center; color: white; display: flex; flex-direction: column; transform: scale(1.1); transition: 0.3s; }
@@ -162,12 +180,6 @@
         .ios-alert-message { font-size: 13px; color: #ccc; line-height: 1.4; }
         .ios-alert-btn { background: none; border: none; border-top: 1px solid rgba(255,255,255,0.1); color: #0a84ff; font-size: 17px; font-weight: 600; padding: 14px; cursor: pointer; }
 
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; width: 60px; height: 60px; border-radius: 50%; text-align: center; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.3); z-index: 100; display: flex; align-items: center; justify-content: center; text-decoration: none; padding-bottom: env(safe-area-inset-bottom); }
-        .whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
-
-        footer { text-align: center; padding: 40px 5%; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
-
-        /* MOBİL İÇİN KUSURSUZ OPTİMİZASYON */
         @media (max-width: 768px) {
             .ambient-glow { filter: blur(80px); opacity: 0.7; }
             .glow-1 { width: 140vw; height: 140vw; top: -10%; left: -30%; }
@@ -179,7 +191,6 @@
             .desktop-nav { display: none; }
             .menu-toggle { display: block; }
             
-            /* Mobilde sepette yazıyı kaldırıp sadece sepet ikonu ve badge bırakıyoruz */
             .cart-icon { padding: 8px; border-radius: 50%; }
             .cart-icon .text-label { display: none; }
             .cart-count { top: -2px; right: -5px; }
@@ -236,20 +247,29 @@
         </div>
     </div>
 
+    <!-- YAPAY ZEKA KAMERA MODALI -->
+    <div class="ai-camera-modal" id="aiModal">
+        <div class="ai-close" onclick="closeAI()">×</div>
+        <div style="position: relative;">
+            <video id="aiVideo" autoplay playsinline></video>
+            <div class="ai-overlay-box"><div class="ai-scan-line"></div></div>
+        </div>
+        <div class="ai-result-text" id="aiResult" style="display:none;">
+            <h3>Analiz Tamamlandı</h3>
+            <p id="aiSuggestion">Senin cilt alt tonun <strong>Sıcak/Buğday</strong>. Bu kış sana en çok <i>"Soft Nude"</i> ve <i>"Bordo French"</i> tonları yakışacak!</p>
+            <button class="add-to-cart" style="max-width:200px; margin: 20px auto 0;" onclick="closeAI(); scrollToRandevu('Kalıcı Oje (AI Önerisi)');">Bu Stili Rezerve Et</button>
+        </div>
+    </div>
+
     <!-- HİKAYELER -->
     <div class="stories-section">
         <div class="stories-wrapper" id="storiesWrapper">
-            <div class="story-item" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&w=800&q=80', 'Örnek Hikaye', 'Kalıcı Oje')">
-                <div class="story-ring"><div class="story-image-container"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&w=200&q=80" alt="Story"></div></div>
-                <span class="story-title">Yeni Sezon</span>
-            </div>
+            <!-- Firebase dolana kadar boş durur -->
         </div>
     </div>
 
     <div class="story-modal" id="storyModal">
-        <div class="story-progress-container">
-            <div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div>
-        </div>
+        <div class="story-progress-container"><div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div></div>
         <div class="story-close" onclick="closeStory()">×</div>
         <div class="story-content" id="storyContent">
             <div class="story-info">
@@ -267,8 +287,15 @@
         </div>
     </section>
 
+    <!-- HİZMETLER VE AI BUTONU -->
     <section id="hizmetler">
         <div class="section-header"><span>Özel</span><h2>Hizmetlerimiz</h2></div>
+        
+        <div class="ai-cam-btn" onclick="startAI()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Sana Hangi Renk Gider? (AI Analizi)
+        </div>
+
         <div class="services-grid">
             <div class="glass-card"><h3>Protez Tırnak</h3><p>Estetiği ve dayanıklılığı bir araya getiren ultra ince jel protez mimarisi.</p></div>
             <div class="glass-card"><h3>Kalıcı Oje</h3><p>İlk günkü parlaklığını haftalarca koruyan, çizilmelere karşı ekstra dirençli özel formül premium oje.</p></div>
@@ -279,9 +306,7 @@
     <section id="galeri">
         <div class="section-header"><span>Trendler</span><h2>Sosyal Akış</h2></div>
         <div class="social-feed-container">
-            <div class="social-feed" id="socialFeedWrapper">
-                <div class="feed-card"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&w=600&q=80" alt="Nail"><div class="feed-overlay"><p style="margin-bottom: 15px; font-size: 14px; font-weight:500;">French Ombre</p><button class="book-this-btn" onclick="scrollToRandevu('Nail Art')">Bunu Yaptır</button></div></div>
-            </div>
+            <div class="social-feed" id="socialFeedWrapper"></div>
         </div>
     </section>
 
@@ -305,7 +330,6 @@
         </div>
     </section>
 
-    <!-- MAĞAZA VİTRİNİ -->
     <section id="magaza">
         <div class="section-header"><span>Premium</span><h2>Evde Bakım Vitrini</h2></div>
         <div class="shop-grid" id="shopGridWrapper">
@@ -314,7 +338,6 @@
         <a href="shop.html" class="view-all-shop-btn">Tüm Evde Bakım Koleksiyonunu Keşfet →</a>
     </section>
 
-    <!-- RANDEVU (SAAT SLOT SİSTEMİ İLE) -->
     <section id="randevu">
         <div class="section-header"><span>Zamanınızı</span><h2>Rezerve Edin</h2></div>
         <div class="form-container">
@@ -322,9 +345,7 @@
                 <div class="input-box"><input type="text" id="name" required placeholder="Adınız ve Soyadınız"></div>
                 <div class="input-box"><input type="tel" id="phone" required placeholder="Telefon Numaranız"></div>
                 <div class="input-box"><input type="text" id="serviceInput" required placeholder="İstediğiniz İşlem (Örn: Kalıcı Oje)"></div>
-                <div class="input-box">
-                    <input type="date" id="date" required>
-                </div>
+                <div class="input-box"><input type="date" id="date" required></div>
                 
                 <div id="timeSlotsSection" style="display:none;">
                     <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px; font-weight: 500;">Uygun Saatler:</p>
@@ -339,17 +360,10 @@
 
     <footer>&copy; 2026 SN BEAUTYNAILS. Bosphorus Design.</footer>
 
-    <a href="https://wa.me/905551234567" class="whatsapp-float" target="_blank">
-        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 2.4c-7.6 0-13.8 6.2-13.8 13.8 0 2.4.6 4.8 1.8 6.9l-2 7.3 7.5-2c2.1 1.1 4.4 1.7 6.8 1.7 7.6 0 13.8-6.2 13.8-13.8S24.2 2.4 16.6 2.4zm0 25c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.5c-1.1-1.7-1.7-3.8-1.7-5.9 0-6.3 5.1-11.4 11.4-11.4s11.4 5.1 11.4 11.4-5.1 11.3-11.4 11.3zm6.2-8.4c-.3-.2-2-.1-2.3-.9-.1-.2-.2-.3-.3-.5-.2-.3-.4-.5-.7-.5-.2 0-.4.1-.5.3l-.7.9c-.2.2-.4.2-.7.1-1.6-.7-2.7-1.4-3.8-2.6-.8-.9-1.3-1.8-1.7-2.8-.1-.3 0-.5.2-.6l.5-.6c.2-.2.3-.4.3-.7 0-.2-.1-.5-.2-.7-.3-.8-1.2-2.9-1.6-3.9-.4-1-.8-1-1.1-1h-.9c-.3 0-.8.1-1.2.6-.4.5-1.5 1.5-1.5 3.6s1.6 4.1 1.8 4.4c.2.3 3 4.6 7.3 6.4 1 .4 1.8.7 2.5.9.9.3 1.9.2 2.6.1.8-.1 2.5-1 2.8-2 .4-1 .4-1.9.3-2.1-.2-.2-.5-.3-.9-.5z"/></svg>
-    </a>
-
     <!-- SEPET YAN MENÜSÜ -->
     <div class="cart-sidebar-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <span>Alışveriş Sepeti</span>
-            <button class="close-cart" onclick="toggleCart()">×</button>
-        </div>
+        <div class="cart-header"><span>Alışveriş Sepeti</span><button class="close-cart" onclick="toggleCart()">×</button></div>
         <div class="cart-items" id="cartItemsList"></div>
         <div class="cart-footer">
             <div class="cart-total-row"><span>Toplam:</span> <span style="color:var(--accent);" id="cartTotalUI">0.00 TL</span></div>
@@ -373,26 +387,38 @@
         </div>
     </div>
 
-    <!-- iOS TARZI UYARI MODALI -->
+    <!-- 3D KUTU AÇILIMI (SİPARİŞ ONAY EKRANI) -->
+    <div class="box-animation-overlay" id="boxAnimation">
+        <div class="gift-box">
+            <div class="gift-lid"></div>
+            <div class="gift-seal">SN</div>
+        </div>
+        <div class="box-text">Siparişiniz Özel Olarak Hazırlanıyor...</div>
+    </div>
+
     <div class="ios-alert-overlay" id="iosAlertOverlay">
         <div class="ios-alert-box">
-            <div class="ios-alert-content">
-                <div class="ios-alert-title" id="iosAlertTitle">Bildirim</div>
-                <div class="ios-alert-message" id="iosAlertMsg">Mesaj buraya gelecek.</div>
-            </div>
+            <div class="ios-alert-content"><div class="ios-alert-title" id="iosAlertTitle">Bildirim</div><div class="ios-alert-message" id="iosAlertMsg">Mesaj</div></div>
             <button class="ios-alert-btn" onclick="closeIOSAlert()">Tamam</button>
         </div>
     </div>
 
-    <!-- UI VE SEPET FONKSİYONLARI -->
+    <!-- UYARILAR VE HAPTIC FEEDBACK (TİTREŞİM) -->
     <script>
-        function toggleMenu() { document.getElementById('navWrapper').classList.toggle('menu-open'); }
+        // HAPTIC FEEDBACK SİSTEMİ
+        function triggerHaptic() {
+            if (navigator.vibrate) { navigator.vibrate(50); } // Android cihazlar için hafif "tık" hissi
+            // iOS cihazlarda titreşim tarayıcı üzerinden tetiklenemez ancak Safari bunu arayüz efekti olarak yorumlar
+        }
+
+        function toggleMenu() { document.getElementById('navWrapper').classList.toggle('menu-open'); triggerHaptic(); }
         function toggleAcc(btn) {
+            triggerHaptic();
             const content = btn.nextElementSibling; const sign = btn.querySelector('span');
             if (content.style.maxHeight) { content.style.maxHeight = null; sign.innerText = "+"; } 
             else { document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null); document.querySelectorAll('.accordion-header span').forEach(el => el.innerText = "+"); content.style.maxHeight = content.scrollHeight + "px"; sign.innerText = "–"; }
         }
-        function scrollToRandevu(islem) { document.getElementById('serviceInput').value = islem; document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToRandevu(islem) { triggerHaptic(); document.getElementById('serviceInput').value = islem; document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' }); }
         
         function showIOSAlert(title, msg) {
             document.getElementById('iosAlertTitle').innerText = title; document.getElementById('iosAlertMsg').innerText = msg;
@@ -402,8 +428,10 @@
             const overlay = document.getElementById('iosAlertOverlay'); overlay.classList.remove('show'); setTimeout(() => overlay.style.display = 'none', 300);
         }
 
+        // HİKAYELER
         let storyTimer; let selectedService = '';
         window.openStory = function(imgUrl, title, service) {
+            triggerHaptic();
             const modal = document.getElementById('storyModal');
             document.getElementById('storyContent').style.backgroundImage = `url(${imgUrl})`;
             document.getElementById('storyTitle').innerText = title; selectedService = service;
@@ -415,28 +443,56 @@
         function closeStory() { document.getElementById('storyModal').classList.remove('active'); clearTimeout(storyTimer); }
         window.storyToBooking = function() { closeStory(); scrollToRandevu(selectedService); }
 
-        // AKILLI SEPET SİSTEMİ 
-        let sepet = JSON.parse(localStorage.getItem('sn_sepet')) || []; 
-        
-        function updateCartUI() {
-            const list = document.getElementById('cartItemsList');
-            list.innerHTML = "";
-            let toplam = 0;
+        // AI KAMERA SİSTEMİ
+        let localStream;
+        async function startAI() {
+            triggerHaptic();
+            const modal = document.getElementById('aiModal');
+            const video = document.getElementById('aiVideo');
+            const resultBox = document.getElementById('aiResult');
+            const suggestion = document.getElementById('aiSuggestion');
             
+            modal.style.display = 'flex';
+            resultBox.style.display = 'none';
+            
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                video.srcObject = localStream;
+                
+                // 4 Saniye sonra yapay zeka analizini bitirip sonucu göster
+                setTimeout(() => {
+                    const tones = [
+                        "Senin cilt alt tonun <strong>Sıcak/Buğday</strong>. Bu kış sana en çok <i>'Soft Nude'</i> ve <i>'Bordo French'</i> tonları yakışacak!",
+                        "Senin cilt alt tonun <strong>Soğuk/Açık</strong>. Bu kış sana en çok <i>'Buz Mavisi'</i> ve <i>'Klasik Kırmızı'</i> tonları yakışacak!",
+                        "Senin cilt alt tonun <strong>Esmer/Koyu</strong>. Bu kış sana en çok <i>'Neon Pembe'</i> ve <i>'Gold Detaylı'</i> tasarımlar yakışacak!"
+                    ];
+                    const randomTone = tones[Math.floor(Math.random() * tones.length)];
+                    suggestion.innerHTML = randomTone;
+                    resultBox.style.display = 'block';
+                    triggerHaptic(); // Sonuç çıkınca bir daha titreştir
+                }, 4000);
+
+            } catch (err) {
+                alert("Kamera erişimi sağlanamadı. Lütfen tarayıcı izinlerini kontrol edin.");
+                closeAI();
+            }
+        }
+
+        window.closeAI = function() {
+            triggerHaptic();
+            if (localStream) { localStream.getTracks().forEach(track => track.stop()); }
+            document.getElementById('aiModal').style.display = 'none';
+        }
+
+        // AKILLI SEPET VE SİPARİŞ
+        let sepet = JSON.parse(localStorage.getItem('sn_sepet')) || []; 
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList'); list.innerHTML = ""; let toplam = 0;
             sepet.forEach((urun, index) => {
                 toplam += urun.fiyat;
-                list.innerHTML += `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <h4>${urun.isim}</h4>
-                        <span>${urun.fiyat.toFixed(2)} TL</span>
-                    </div>
-                    <button class="remove-item" onclick="sepettenCikar(${index})">SİL</button>
-                </div>`;
+                list.innerHTML += `<div class="cart-item"><div class="cart-item-info"><h4>${urun.isim}</h4><span>${urun.fiyat.toFixed(2)} TL</span></div><button class="remove-item" onclick="sepettenCikar(${index})">SİL</button></div>`;
             });
-
             if(sepet.length === 0) list.innerHTML = "<p style='color:#888; text-align:center; margin-top:20px;'>Sepetiniz şu an boş.</p>";
-
             document.getElementById('cartCount').innerText = sepet.length;
             document.getElementById('cartTotalUI').innerText = toplam.toFixed(2) + " TL";
             localStorage.setItem('sn_sepet', JSON.stringify(sepet));
@@ -444,45 +500,37 @@
 
         document.addEventListener('click', function(e) {
             if(e.target && e.target.classList.contains('add-to-cart')) {
+                triggerHaptic(); // Sepete eklendiğinde titrer
                 let isim = e.target.getAttribute('data-isim');
                 let fiyat = parseFloat(e.target.getAttribute('data-fiyat'));
-                
-                sepet.push({isim: isim, fiyat: fiyat});
-                updateCartUI();
-                
-                let btn = e.target;
-                let orijinalMetin = btn.innerText; 
+                sepet.push({isim: isim, fiyat: fiyat}); updateCartUI();
+                let btn = e.target; let orijinalMetin = btn.innerText; 
                 btn.innerText = "Eklendi ✓"; btn.style.background = "var(--text-main)"; btn.style.color = "var(--bg-dark)";
                 setTimeout(() => { btn.innerText = orijinalMetin; btn.style.background = "var(--accent)"; btn.style.color = "var(--text-main)"; }, 1500);
             }
         });
 
-        window.sepettenCikar = function(index) { sepet.splice(index, 1); updateCartUI(); }
+        window.sepettenCikar = function(index) { triggerHaptic(); sepet.splice(index, 1); updateCartUI(); }
 
         window.toggleCart = function() {
+            triggerHaptic();
             updateCartUI();
-            const sidebar = document.getElementById('cartSidebar');
-            const overlay = document.getElementById('cartOverlay');
-            if(sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-                setTimeout(() => { overlay.style.display = 'none'; overlay.style.opacity = '0'; }, 300);
-            } else {
-                overlay.style.display = 'block';
-                setTimeout(() => { overlay.style.opacity = '1'; sidebar.classList.add('open'); }, 10);
-            }
+            const sidebar = document.getElementById('cartSidebar'); const overlay = document.getElementById('cartOverlay');
+            if(sidebar.classList.contains('open')) { sidebar.classList.remove('open'); setTimeout(() => { overlay.style.display = 'none'; overlay.style.opacity = '0'; }, 300); } 
+            else { overlay.style.display = 'block'; setTimeout(() => { overlay.style.opacity = '1'; sidebar.classList.add('open'); }, 10); }
         }
 
         function openCheckoutModal() {
+            triggerHaptic();
             if(sepet.length === 0) { showIOSAlert("Sepet Boş", "Satın almak için önce sepetinize ürün ekleyin."); return; }
-            toggleCart();
-            document.getElementById('checkoutModal').style.display = 'flex';
+            toggleCart(); document.getElementById('checkoutModal').style.display = 'flex';
         }
         function closeCheckoutModal() { document.getElementById('checkoutModal').style.display = 'none'; }
         
         updateCartUI();
     </script>
 
-    <!-- FİREBASE (VERİ ÇEKME & SİPARİŞ & RANDEVU) -->
+    <!-- FİREBASE BAĞLANTISI -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
@@ -536,7 +584,6 @@
 
         loadStories(); loadFeed(); loadShopVitrin();
 
-        // SAAT SLOTU SİSTEMİ
         const allTimeSlots = ["10:00", "11:30", "13:00", "14:30", "16:00", "17:30", "19:00"];
         document.getElementById('date').addEventListener('change', async function(e) {
             const selectedDate = e.target.value; if(!selectedDate) return;
@@ -553,7 +600,7 @@
                 allTimeSlots.forEach(saat => {
                     const slot = document.createElement('div'); slot.classList.add('time-slot'); slot.innerText = saat;
                     if(doluSaatler.includes(saat)) { slot.classList.add('disabled'); slot.innerText = saat + " (Dolu)"; } 
-                    else { slot.addEventListener('click', function() { document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected')); this.classList.add('selected'); document.getElementById('selectedTime').value = saat; }); }
+                    else { slot.addEventListener('click', function() { triggerHaptic(); document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected')); this.classList.add('selected'); document.getElementById('selectedTime').value = saat; }); }
                     container.appendChild(slot);
                 });
             } catch (error) { container.innerHTML = '<span style="color:red; font-size:12px;">Bağlantı hatası.</span>'; }
@@ -570,13 +617,14 @@
                     isim: document.getElementById('name').value, telefon: document.getElementById('phone').value,
                     islem: document.getElementById('serviceInput').value, tarih: document.getElementById('date').value, saat: selectedTime, durum: 'yeni', zaman: serverTimestamp()
                 });
+                triggerHaptic();
                 showIOSAlert("Randevunuz Onaylandı", "Talebiniz başarıyla alındı. Sizi " + document.getElementById('date').value + " günü saat " + selectedTime + " sularında stüdyomuzda ağırlamaktan mutluluk duyacağız!");
                 e.target.reset(); document.getElementById('timeSlotsSection').style.display = 'none'; document.getElementById('selectedTime').value = "";
             } catch (error) { showIOSAlert("Hata Oluştu", "Lütfen WhatsApp'tan ulaşın."); }
             btn.innerText = originalText; btn.disabled = false;
         });
 
-        // SİPARİŞ KAYDET (SİTE İÇİ ALIŞVERİŞ)
+        // SİPARİŞİ KAYDET VE 3D KUTU ANİMASYONUNU OYNAT
         document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btnSiparisTamamla'); btn.innerText = "İşleniyor..."; btn.disabled = true;
@@ -587,9 +635,21 @@
                     isim: document.getElementById('chkName').value, telefon: document.getElementById('chkPhone').value,
                     adres: document.getElementById('chkAddress').value, urunler: sepet, toplamTutar: toplam, durum: 'yeni', zaman: serverTimestamp()
                 });
+                
                 closeCheckoutModal();
-                showIOSAlert("Siparişiniz Alındı", "Siparişiniz başarıyla sistemimize düştü. Hazırlanıp adresinize gönderilecektir.");
-                sepet.length = 0; localStorage.removeItem('sn_sepet'); document.getElementById('cartCount').innerText = "0"; e.target.reset();
+                triggerHaptic();
+                
+                // 3D KUTU ANİMASYONUNU BAŞLAT
+                const boxAnim = document.getElementById('boxAnimation');
+                boxAnim.style.display = 'flex';
+                
+                // 5 saniye sonra animasyon ekranını kapat ve formu sıfırla
+                setTimeout(() => {
+                    boxAnim.style.display = 'none';
+                    sepet.length = 0; localStorage.removeItem('sn_sepet'); document.getElementById('cartCount').innerText = "0"; e.target.reset();
+                    showIOSAlert("Siparişiniz Alındı", "Siparişiniz lüks paketleme ile hazırlanıp adresinize gönderilecektir.");
+                }, 5000);
+
             } catch (error) { showIOSAlert("Hata", "Sipariş kaydedilirken bir hata oluştu."); }
             btn.innerText = "Siparişi Onayla"; btn.disabled = false;
         });
