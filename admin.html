@@ -77,7 +77,6 @@
 
     <div class="main-content">
         
-        <!-- RANDEVU YÖNETİMİ -->
         <div id="randevular" class="tab-content active">
             <div class="header-title">Gelen Randevular <button class="btn-refresh" onclick="randevulariGetir()">Yenile</button></div>
             <div class="card">
@@ -96,7 +95,6 @@
             </div>
         </div>
 
-        <!-- YENİ: SİPARİŞLER (E-TİCARET) -->
         <div id="siparisler" class="tab-content">
             <div class="header-title">Gelen Mağaza Siparişleri <button class="btn-refresh" onclick="siparisleriGetir()">Yenile</button></div>
             <div class="card">
@@ -115,14 +113,12 @@
             </div>
         </div>
 
-        <!-- FİYAT VE MALİYET AYARLARI -->
         <div id="maliyetler" class="tab-content">
             <div class="header-title">Hizmet Fiyatları ve Maliyetleri</div>
             <div class="card">
                 <div class="card-header">Yeni Hizmet / Maliyet Ekle</div>
                 <form id="maliyetForm" class="form-grid">
                     <div class="form-group"><label>İşlem Adı (Örn: Kalıcı Oje)</label><input type="text" id="malIslem" required></div>
-                    <!-- Küsüratlı rakamlar için step="0.01" eklendi -->
                     <div class="form-group"><label>Müşteriden Alınan Fiyat (TL)</label><input type="number" step="0.01" id="malFiyat" required></div>
                     <div class="form-group"><label>Sana Olan Malzeme Maliyeti (TL)</label><input type="number" step="0.01" id="malGider" required></div>
                     <div class="form-group" style="justify-content: flex-end;"><button type="submit" class="btn-refresh" style="width:100%;">Kaydet / Güncelle</button></div>
@@ -137,11 +133,10 @@
             </div>
         </div>
 
-        <!-- MAĞAZA ÜRÜN YÖNETİMİ -->
         <div id="magazaYonetim" class="tab-content">
             <div class="header-title">Mağaza Ürünleri Ekle / Çıkar</div>
             <div class="card">
-                <div class="card-header">🛍️️ Yeni Ürün Ekle</div>
+                <div class="card-header">🛍 Yeni Ürün Ekle</div>
                 <form id="urunForm" style="display:flex; flex-direction:column; gap:15px;">
                     <input type="text" id="urunIsim" placeholder="Ürün Adı (Örn: Keratin Bakım Yağı)" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
                     <input type="number" step="0.01" id="urunFiyat" placeholder="Fiyat (TL) - Örn: 150.50" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
@@ -155,7 +150,6 @@
             </div>
         </div>
 
-        <!-- FİNANS -->
         <div id="finans" class="tab-content">
             <div class="header-title">Canlı Finansal Veriler (Randevu + Ayarlar Entegreli)</div>
             <div class="metrics-grid">
@@ -166,7 +160,6 @@
             <div class="card" style="height: 400px;"><canvas id="financeChart"></canvas></div>
         </div>
 
-        <!-- İÇERİK YÖNETİMİ -->
         <div id="icerik" class="tab-content">
             <div class="header-title">Site İçeriklerini Yönet</div>
             <div class="form-grid">
@@ -195,7 +188,6 @@
             </div>
         </div>
 
-        <!-- IG STÜDYO -->
         <div id="studio" class="tab-content">
             <div class="header-title">Instagram Pro Şablon Üretici</div>
             <div class="card studio-grid">
@@ -297,7 +289,7 @@
         }
     </script>
 
-    <!-- FİREBASE MERKEZİ (TAMAMEN DİNAMİK YAPI) -->
+    <!-- FİREBASE MERKEZİ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, query, orderBy, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
@@ -317,7 +309,7 @@
 
         let dynamicFiyatlar = {}; 
 
-        // 1. MALİYET AYARLARI SİSTEMİ
+        // MALİYET AYARLARI
         async function loadMaliyetler() {
             const liste = document.getElementById('maliyetListesi');
             liste.innerHTML = '<tr><td colspan="5">Yükleniyor...</td></tr>';
@@ -327,14 +319,7 @@
                 snap.forEach(d => {
                     const data = d.data();
                     dynamicFiyatlar[data.islem] = { ciro: Number(data.fiyat), maliyet: Number(data.maliyet) };
-                    liste.innerHTML += `
-                    <tr>
-                        <td><strong>${data.islem}</strong></td>
-                        <td>₺${Number(data.fiyat).toFixed(2)}</td>
-                        <td>₺${Number(data.maliyet).toFixed(2)}</td>
-                        <td style="color:#10b981; font-weight:600;">₺${(data.fiyat - data.maliyet).toFixed(2)}</td>
-                        <td><button class="btn-action delete" onclick="silBelge('hizmet_ayarlari', '${d.id}')">Sil</button></td>
-                    </tr>`;
+                    liste.innerHTML += `<tr><td><strong>${data.islem}</strong></td><td>₺${Number(data.fiyat).toFixed(2)}</td><td>₺${Number(data.maliyet).toFixed(2)}</td><td style="color:#10b981; font-weight:600;">₺${(data.fiyat - data.maliyet).toFixed(2)}</td><td><button class="btn-action delete" onclick="silBelge('hizmet_ayarlari', '${d.id}')">Sil</button></td></tr>`;
                 });
                 if(liste.innerHTML === "") liste.innerHTML = '<tr><td colspan="5">Henüz fiyat eklenmedi.</td></tr>';
                 randevulariGetir(); 
@@ -344,16 +329,12 @@
         document.getElementById('maliyetForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                await addDoc(collection(db, "hizmet_ayarlari"), {
-                    islem: document.getElementById('malIslem').value,
-                    fiyat: parseFloat(document.getElementById('malFiyat').value),
-                    maliyet: parseFloat(document.getElementById('malGider').value)
-                });
+                await addDoc(collection(db, "hizmet_ayarlari"), { islem: document.getElementById('malIslem').value, fiyat: parseFloat(document.getElementById('malFiyat').value), maliyet: parseFloat(document.getElementById('malGider').value) });
                 e.target.reset(); loadMaliyetler();
             } catch(er) { alert("Hata"); }
         });
 
-        // 2. MAĞAZA ÜRÜN YÖNETİMİ
+        // MAĞAZA ÜRÜN YÖNETİMİ
         async function loadUrunlerAdmin() {
             const list = document.getElementById('urunYonetimListesi');
             try {
@@ -361,10 +342,7 @@
                 list.innerHTML = "";
                 snap.forEach(d => {
                     const data = d.data();
-                    list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;">
-                        <span style="font-size:14px; font-weight:600;">${data.isim} - ₺${Number(data.fiyat).toFixed(2)}</span>
-                        <button class="btn-action delete" onclick="silBelge('urunler', '${d.id}')">Kaldır</button>
-                    </div>`;
+                    list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;"><span style="font-size:14px; font-weight:600;">${data.isim} - ₺${Number(data.fiyat).toFixed(2)}</span><button class="btn-action delete" onclick="silBelge('urunler', '${d.id}')">Kaldır</button></div>`;
                 });
                 if(list.innerHTML === "") list.innerHTML = '<span style="color:#888; font-size:13px;">Mağazada ürün yok.</span>';
             } catch(e){ console.log(e); }
@@ -374,79 +352,43 @@
             e.preventDefault();
             const file = document.getElementById('urunImg').files[0];
             resizeBase64(file, 800, 800, async (base64) => {
-                await addDoc(collection(db, "urunler"), {
-                    isim: document.getElementById('urunIsim').value,
-                    fiyat: parseFloat(document.getElementById('urunFiyat').value),
-                    resim: base64, zaman: serverTimestamp()
-                });
+                await addDoc(collection(db, "urunler"), { isim: document.getElementById('urunIsim').value, fiyat: parseFloat(document.getElementById('urunFiyat').value), resim: base64, zaman: serverTimestamp() });
                 e.target.reset(); loadUrunlerAdmin(); alert("Ürün Mağazaya Eklendi!");
             });
         });
 
-
-        // 3. İÇERİK YÖNETİM SİSTEMİ (HİKAYE VE AKIŞ)
+        // İÇERİK YÖNETİM SİSTEMİ
         async function loadIcerik() {
             const stList = document.getElementById('storyList'); stList.innerHTML = "";
             const stSnap = await getDocs(query(collection(db, "hikayeler"), orderBy("zaman", "desc")));
-            stSnap.forEach(d => {
-                const data = d.data();
-                stList.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;">
-                    <span style="font-size:14px; font-weight:600;">${data.baslik} (${data.islem})</span>
-                    <button class="btn-action delete" onclick="silBelge('hikayeler', '${d.id}')">Kaldır</button>
-                </div>`;
-            });
+            stSnap.forEach(d => { const data = d.data(); stList.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;"><span style="font-size:14px; font-weight:600;">${data.baslik} (${data.islem})</span><button class="btn-action delete" onclick="silBelge('hikayeler', '${d.id}')">Kaldır</button></div>`; });
+            
             const fdList = document.getElementById('feedList'); fdList.innerHTML = "";
             const fdSnap = await getDocs(query(collection(db, "sosyal_akis"), orderBy("zaman", "desc")));
-            fdSnap.forEach(d => {
-                const data = d.data();
-                fdList.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;">
-                    <span style="font-size:14px; font-weight:600;">${data.baslik}</span>
-                    <button class="btn-action delete" onclick="silBelge('sosyal_akis', '${d.id}')">Kaldır</button>
-                </div>`;
-            });
+            fdSnap.forEach(d => { const data = d.data(); fdList.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;"><span style="font-size:14px; font-weight:600;">${data.baslik}</span><button class="btn-action delete" onclick="silBelge('sosyal_akis', '${d.id}')">Kaldır</button></div>`; });
         }
 
         document.getElementById('storyForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const file = document.getElementById('storyImg').files[0];
-            resizeBase64(file, 1080, 1920, async (base64) => {
-                await addDoc(collection(db, "hikayeler"), {
-                    baslik: document.getElementById('storyTitle').value,
-                    islem: document.getElementById('storyService').value,
-                    resim: base64, zaman: serverTimestamp()
-                });
-                e.target.reset(); loadIcerik(); alert("Hikaye Eklendi!");
-            });
+            e.preventDefault(); const file = document.getElementById('storyImg').files[0];
+            resizeBase64(file, 1080, 1920, async (base64) => { await addDoc(collection(db, "hikayeler"), { baslik: document.getElementById('storyTitle').value, islem: document.getElementById('storyService').value, resim: base64, zaman: serverTimestamp() }); e.target.reset(); loadIcerik(); alert("Hikaye Eklendi!"); });
         });
 
         document.getElementById('feedForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const file = document.getElementById('feedImg').files[0];
-            resizeBase64(file, 1080, 1350, async (base64) => {
-                await addDoc(collection(db, "sosyal_akis"), {
-                    baslik: document.getElementById('feedTitle').value,
-                    islem: document.getElementById('feedService').value,
-                    resim: base64, zaman: serverTimestamp()
-                });
-                e.target.reset(); loadIcerik(); alert("Post Eklendi!");
-            });
+            e.preventDefault(); const file = document.getElementById('feedImg').files[0];
+            resizeBase64(file, 1080, 1350, async (base64) => { await addDoc(collection(db, "sosyal_akis"), { baslik: document.getElementById('feedTitle').value, islem: document.getElementById('feedService').value, resim: base64, zaman: serverTimestamp() }); e.target.reset(); loadIcerik(); alert("Post Eklendi!"); });
         });
 
         window.silBelge = async function(koleksiyon, id) {
             if(confirm("Silmek istediğinize emin misiniz?")) {
                 await deleteDoc(doc(db, koleksiyon, id));
-                if(koleksiyon === 'hizmet_ayarlari') loadMaliyetler();
-                else if(koleksiyon === 'urunler') loadUrunlerAdmin();
-                else loadIcerik();
+                if(koleksiyon === 'hizmet_ayarlari') loadMaliyetler(); else if(koleksiyon === 'urunler') loadUrunlerAdmin(); else loadIcerik();
             }
         }
 
-        // 4. SİPARİŞLER (E-TİCARET) SİSTEMİ
+        // SİPARİŞLER (ADET EKLENTİSİ İLE GÜNCELLENDİ)
         window.siparisleriGetir = async function() {
-            const aktifSipListe = document.getElementById('aktifSiparisListesi');
-            const gecmisSipListe = document.getElementById('gecmisSiparisListesi');
-            aktifSipListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Veriler yükleniyor...</td></tr>';
-            gecmisSipListe.innerHTML = '';
+            const aktifSipListe = document.getElementById('aktifSiparisListesi'); const gecmisSipListe = document.getElementById('gecmisSiparisListesi');
+            aktifSipListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Veriler yükleniyor...</td></tr>'; gecmisSipListe.innerHTML = '';
 
             try {
                 const q = query(collection(db, "siparisler"), orderBy("zaman", "desc"));
@@ -458,87 +400,52 @@
                     const durum = data.durum || 'yeni';
                     const tr = document.createElement('tr');
                     
-                    // Sepetteki ürünlerin listesini çıkar
                     let urunlerMetin = "";
                     if(data.urunler && Array.isArray(data.urunler)) {
-                        data.urunler.forEach(u => urunlerMetin += `<span style="display:block; font-size:12px;">• ${u.isim}</span>`);
+                        // ADET MİKTARINI DA ADMİNE YAZDIRIR
+                        data.urunler.forEach(u => urunlerMetin += `<span style="display:block; font-size:12px;">• ${u.miktar || 1}x ${u.isim}</span>`);
                     }
 
                     if(durum === 'yeni') {
-                        tr.innerHTML = `
-                            <td><strong>${data.isim}</strong><br><span style="font-size:12px; color:var(--accent);">${data.telefon}</span></td>
-                            <td style="font-size:12px; max-width:150px;">${data.adres}</td>
-                            <td>${urunlerMetin}</td>
-                            <td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td>
-                            <td><button class="btn-action" onclick="siparisTamamla('${documentObj.id}')">Kargolandı İşaretle</button></td>
-                        `;
+                        tr.innerHTML = `<td><strong>${data.isim}</strong><br><span style="font-size:12px; color:var(--accent);">${data.telefon}</span></td><td style="font-size:12px; max-width:150px;">${data.adres}</td><td>${urunlerMetin}</td><td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td><td><button class="btn-action" onclick="siparisTamamla('${documentObj.id}')">Kargolandı</button></td>`;
                         aktifSipListe.appendChild(tr);
                     } else {
-                        tr.innerHTML = `
-                            <td><strong>${data.isim}</strong></td>
-                            <td style="font-size:12px;">${data.adres}</td>
-                            <td>${urunlerMetin}</td>
-                            <td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td>
-                        `;
+                        tr.innerHTML = `<td><strong>${data.isim}</strong></td><td style="font-size:12px;">${data.adres}</td><td>${urunlerMetin}</td><td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td>`;
                         gecmisSipListe.appendChild(tr);
                     }
                 });
-
                 if(aktifSipListe.innerHTML === "") aktifSipListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Bekleyen sipariş yok.</td></tr>';
             } catch (error) { console.log(error); }
         }
 
         window.siparisTamamla = async function(id) {
-            if(confirm("Bu siparişi kargolandı/tamamlandı olarak arşive almak istiyor musunuz?")) {
-                await updateDoc(doc(db, "siparisler", id), { durum: 'tamamlandi' });
-                siparisleriGetir();
-            }
+            if(confirm("Bu siparişi kargolandı olarak arşive almak istiyor musunuz?")) { await updateDoc(doc(db, "siparisler", id), { durum: 'tamamlandi' }); siparisleriGetir(); }
         }
 
-
-        // 5. RANDEVULAR VE GERÇEK FİNANS
+        // RANDEVULAR VE GERÇEK FİNANS
         window.randevulariGetir = async function() {
-            const aktifListe = document.getElementById('aktifRandevuListesi');
-            const gecmisListe = document.getElementById('gecmisRandevuListesi');
-            
-            aktifListe.innerHTML = '<tr><td colspan="6" style="text-align:center;">Veriler yükleniyor...</td></tr>';
-            gecmisListe.innerHTML = '';
+            const aktifListe = document.getElementById('aktifRandevuListesi'); const gecmisListe = document.getElementById('gecmisRandevuListesi');
+            aktifListe.innerHTML = '<tr><td colspan="6" style="text-align:center;">Veriler yükleniyor...</td></tr>'; gecmisListe.innerHTML = '';
             
             try {
                 const q = query(collection(db, "randevular"), orderBy("zaman", "desc"));
                 const snap = await getDocs(q);
                 aktifListe.innerHTML = ""; 
                 
-                let topCiro = 0, topMaliyet = 0;
-                let aylikCiroArray = new Array(12).fill(0);
-                let aylikMaliyetArray = new Array(12).fill(0);
+                let topCiro = 0, topMaliyet = 0; let aylikCiroArray = new Array(12).fill(0); let aylikMaliyetArray = new Array(12).fill(0);
 
                 snap.forEach((documentObj) => {
-                    const data = documentObj.data();
-                    const durum = data.durum || 'yeni';
-                    
-                    let telLink = data.telefon ? data.telefon.replace(/[^0-9]/g, '') : '';
-                    if(telLink.startsWith('0')) telLink = '90' + telLink.substring(1);
-
+                    const data = documentObj.data(); const durum = data.durum || 'yeni';
+                    let telLink = data.telefon ? data.telefon.replace(/[^0-9]/g, '') : ''; if(telLink.startsWith('0')) telLink = '90' + telLink.substring(1);
                     const tr = document.createElement('tr');
                     
                     let hesap = dynamicFiyatlar[data.islem] || { ciro: 0, maliyet: 0 };
-                    topCiro += hesap.ciro;
-                    topMaliyet += hesap.maliyet;
+                    topCiro += hesap.ciro; topMaliyet += hesap.maliyet;
                     
-                    if(data.tarih) {
-                        let ay = new Date(data.tarih).getMonth();
-                        if(!isNaN(ay)) { aylikCiroArray[ay] += hesap.ciro; aylikMaliyetArray[ay] += hesap.maliyet; }
-                    }
+                    if(data.tarih) { let ay = new Date(data.tarih).getMonth(); if(!isNaN(ay)) { aylikCiroArray[ay] += hesap.ciro; aylikMaliyetArray[ay] += hesap.maliyet; } }
 
                     if(durum === 'yeni') {
-                        tr.innerHTML = `
-                            <td><strong>${data.isim || '-'}</strong></td>
-                            <td><a href="https://wa.me/${telLink}" target="_blank" style="color:#d81b60;">${data.telefon || '-'}</a></td>
-                            <td>${data.islem}</td><td>${data.tarih || '-'}</td>
-                            <td><span class="status-badge status-yeni">Bekliyor</span></td>
-                            <td><button class="btn-action" onclick="islemTamamla('${documentObj.id}')">✔ Tamamla</button></td>
-                        `;
+                        tr.innerHTML = `<td><strong>${data.isim || '-'}</strong></td><td><a href="https://wa.me/${telLink}" target="_blank" style="color:#d81b60;">${data.telefon || '-'}</a></td><td>${data.islem}</td><td>${data.tarih || '-'}</td><td><span class="status-badge status-yeni">Bekliyor</span></td><td><button class="btn-action" onclick="islemTamamla('${documentObj.id}')">✔ Tamamla</button></td>`;
                         aktifListe.appendChild(tr);
                     } else {
                         tr.innerHTML = `<td><strong>${data.isim}</strong></td><td>${data.telefon}</td><td>${data.islem}</td><td>${data.tarih}</td><td><span class="status-badge status-tamam">Arşiv</span></td>`;
@@ -547,26 +454,13 @@
                 });
 
                 if(aktifListe.innerHTML === "") aktifListe.innerHTML = '<tr><td colspan="6" style="text-align:center;">Bekleyen aktif randevu yok.</td></tr>';
-                
-                document.getElementById('valCiro').innerText = `₺${topCiro.toLocaleString('tr-TR')}`;
-                document.getElementById('valMaliyet').innerText = `₺${topMaliyet.toLocaleString('tr-TR')}`;
-                document.getElementById('valKar').innerText = `₺${(topCiro - topMaliyet).toLocaleString('tr-TR')}`;
-
-                financeChart.data.datasets[0].data = aylikCiroArray;
-                financeChart.data.datasets[1].data = aylikMaliyetArray;
-                financeChart.update();
-
+                document.getElementById('valCiro').innerText = `₺${topCiro.toLocaleString('tr-TR')}`; document.getElementById('valMaliyet').innerText = `₺${topMaliyet.toLocaleString('tr-TR')}`; document.getElementById('valKar').innerText = `₺${(topCiro - topMaliyet).toLocaleString('tr-TR')}`;
+                financeChart.data.datasets[0].data = aylikCiroArray; financeChart.data.datasets[1].data = aylikMaliyetArray; financeChart.update();
             } catch (error) { console.error(error); }
         }
 
-        window.islemTamamla = async function(id) {
-            if(confirm("İşlem tamamlandı olarak arşive alınacak. Onaylıyor musun?")) {
-                await updateDoc(doc(db, "randevular", id), { durum: 'tamamlandi' });
-                randevulariGetir();
-            }
-        }
+        window.islemTamamla = async function(id) { if(confirm("İşlem tamamlandı olarak arşive alınacak. Onaylıyor musun?")) { await updateDoc(doc(db, "randevular", id), { durum: 'tamamlandi' }); randevulariGetir(); } }
 
-        // Başlangıç Yüklemeleri
         setTimeout(() => { loadMaliyetler(); loadUrunlerAdmin(); loadIcerik(); siparisleriGetir(); }, 500);
     </script>
 </body>
