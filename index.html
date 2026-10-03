@@ -13,36 +13,51 @@
     <meta name="apple-mobile-web-app-title" content="SN Beauty">
     <link rel="apple-touch-icon" href="https://via.placeholder.com/192/d81b60/ffffff?text=SN">
 
+    <!-- APPLE TARZI PREMİUM FONTLAR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
     
     <style>
-        :root { --accent: #d81b60; --bg-dark: #000000; --surface: rgba(28, 28, 30, 0.5); --border: rgba(255, 255, 255, 0.08); --text-main: #ffffff; --text-muted: #8e8e93; }
+        :root {
+            --accent: #d81b60; /* Çarpıcı koyu pembe */
+            --bg-dark: #000000; /* Apple OLED True Black */
+            --surface: rgba(28, 28, 30, 0.5); /* Apple iOS Dark Mode Surface */
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #8e8e93; /* Apple Gray */
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
 
+        /* --- AMBIENT GLOW --- */
         .ambient-glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -2; opacity: 0.35; pointer-events: none; }
         .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--accent); }
         .glow-2 { bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: #4a001a; }
 
-        header { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 1200px; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(20, 20, 22, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 1000; border: 1px solid var(--border); border-radius: 40px; }
-        .logo { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--text-main); text-decoration: none; }
+        /* --- DYNAMIC ISLAND NAVBAR --- */
+        header { 
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 1200px; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(20, 20, 22, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            z-index: 1000; border: 1px solid var(--border); border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .logo { font-family: 'Dancing Script', cursive; font-size: 28px; color: var(--text-main); text-decoration: none; text-shadow: 0 0 10px rgba(216,27,96,0.3); }
         .logo span { color: var(--accent); }
-        .menu-toggle { display: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
         nav { display: flex; align-items: center; }
         nav a { text-decoration: none; color: var(--text-muted); margin-left: 25px; font-size: 13px; font-weight: 500; transition: 0.3s; }
         nav a:hover { color: var(--text-main); }
-
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; }
-        .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; background: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; z-index: -1; opacity: 0.4; -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%); }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
-        .hero h1 i { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 6rem; display: block; margin-top: -10px; font-weight: normal; }
+        .cart-icon { position: relative; cursor: pointer; color: var(--accent); margin-left: 25px; font-weight: 600; font-size: 13px; }
+        .cart-count { position: absolute; top: -8px; right: -12px; background: var(--text-main); color: var(--bg-dark); font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
+        .menu-toggle { display: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
 
         /* --- HİKAYELER (STORIES) --- */
-        .stories-wrapper { padding: 120px 5% 20px; display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; }
+        .stories-wrapper { padding: 120px 5% 20px; display: flex; gap: 15px; overflow-x: auto; scroll-snap-type: x mandatory; position: relative; z-index: 2; }
         .stories-wrapper::-webkit-scrollbar { display: none; }
-        .story-bubble { width: 80px; height: 80px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); cursor: pointer; flex-shrink: 0; }
+        .story-bubble { width: 85px; height: 85px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); cursor: pointer; flex-shrink: 0; }
         .story-bubble img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--bg-dark); object-fit: cover; }
         .story-bubble span { display: block; text-align: center; font-size: 11px; margin-top: 5px; color: var(--text-main); font-weight: 500; }
 
@@ -52,44 +67,122 @@
         .story-progress-container { display: flex; gap: 5px; padding: 15px; position: absolute; top: 0; width: 100%; z-index: 2; }
         .story-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 3px; overflow: hidden; }
         .story-progress-fill { height: 100%; background: #fff; width: 0%; }
-        .story-close { position: absolute; top: 25px; right: 20px; color: #fff; font-size: 30px; z-index: 2; cursor: pointer; }
+        .story-close { position: absolute; top: 25px; right: 20px; color: #fff; font-size: 35px; z-index: 2; cursor: pointer; line-height: 1; }
         .story-content { flex: 1; position: relative; display: flex; align-items: flex-end; padding: 40px 20px; background-size: cover; background-position: center; }
         .story-content::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); z-index: 0; }
-        .story-info { position: relative; z-index: 1; width: 100%; text-align: center; }
-        .story-info h2 { font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 2rem; }
+        .story-info { position: relative; z-index: 1; width: 100%; text-align: center; margin-bottom: 20px; }
+        .story-info h2 { font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 2rem; color: #fff; }
         .swipe-up-btn { background: var(--text-main); color: var(--bg-dark); padding: 15px 30px; border-radius: 30px; font-weight: 600; text-transform: uppercase; border: none; cursor: pointer; }
 
-        section { padding: 100px 8%; position: relative; z-index: 1; }
-        .section-header { text-align: center; margin-bottom: 60px; }
+        /* --- HERO --- */
+        .hero { height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; margin-top: -40px; }
+        .hero-bg { position: absolute; top:0; left:0; width:100%; height:100%; background: url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; opacity: 0.3; -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%); }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
+        .hero h1 i { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 5.5rem; display: block; margin-top: -10px; font-weight: normal; }
+        .btn-glow { display: inline-block; margin-top: 30px; padding: 16px 40px; background: var(--text-main); color: var(--bg-dark); border-radius: 30px; font-weight: 600; font-size: 13px; text-decoration: none; transition: 0.3s; }
+        .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,255,255,0.3); }
+
+        /* --- ORTAK BÖLÜMLER --- */
+        section { padding: 80px 8%; position: relative; z-index: 1; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header span { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 2.5rem; display: block; margin-bottom: -10px; }
         .section-header h2 { font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; }
 
-        /* MOBİL UYUM */
+        /* --- HİZMETLER KARTLARI --- */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .glass-card { background: var(--surface); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--border); padding: 40px 30px; text-align: center; border-radius: 32px; transition: 0.4s; }
+        .glass-card:hover { transform: translateY(-10px); background: rgba(40,40,44,0.7); }
+        .glass-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
+        .glass-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- SOSYAL GALERİ --- */
+        .social-feed { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scroll-snap-type: x mandatory; }
+        .social-feed::-webkit-scrollbar { height: 0px; } 
+        .feed-card { min-width: 300px; height: 420px; position: relative; scroll-snap-align: center; border-radius: 28px; overflow: hidden; border: 1px solid var(--border); }
+        .feed-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .feed-overlay { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.95)); padding: 40px 20px 25px; transform: translateY(100%); transition: 0.4s; display: flex; flex-direction: column; align-items: center; }
+        .feed-card:hover .feed-overlay { transform: translateY(0); }
+        .book-this-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 12px 25px; font-size: 12px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+        .book-this-btn:hover { background: var(--text-main); color: var(--bg-dark); }
+
+        /* --- FİYAT LİSTESİ --- */
+        .price-list { max-width: 700px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 32px; padding: 10px 30px; backdrop-filter: blur(25px); }
+        .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .accordion-item:last-child { border: none; }
+        .accordion-header { width: 100%; padding: 25px 0; background: none; border: none; color: var(--text-main); font-size: 1.2rem; font-weight: 500; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .price-row { display: flex; justify-content: space-between; padding-bottom: 20px; color: var(--text-muted); font-size: 1rem; }
+        .price-row span:last-child { color: var(--text-main); font-weight: 500; }
+
+        /* --- MAĞAZA --- */
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: var(--surface); border: 1px solid var(--border); padding: 25px; text-align: center; border-radius: 32px; backdrop-filter: blur(15px); }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 20px; border-radius: 20px; }
+        .product-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
+        .product-card .price { color: var(--accent); font-size: 1.2rem; margin-bottom: 20px; display: block; font-weight: 500; }
+        .add-to-cart { background: var(--text-main); color: var(--bg-dark); border: none; padding: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; font-size: 13px; width: 100%; }
+        .add-to-cart:hover { transform: scale(1.03); }
+
+        /* --- iOS TARZI FORM --- */
+        .form-container { max-width: 500px; margin: 0 auto; background: var(--surface); padding: 40px; border-radius: 32px; border: 1px solid var(--border); backdrop-filter: blur(25px); }
+        .input-box { margin-bottom: 25px; }
+        .input-box input { width: 100%; padding: 16px 20px; font-size: 1rem; color: var(--text-main); border: 1px solid var(--border); border-radius: 18px; outline: none; background: rgba(0,0,0,0.3); font-family: 'Inter', sans-serif; transition: 0.3s; }
+        .input-box input:focus { border-color: var(--accent); background: rgba(0,0,0,0.6); }
+        .submit-btn { width: 100%; background: var(--accent); color: var(--text-main); border: none; padding: 18px; font-size: 14px; font-weight: 600; border-radius: 20px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { background: #e91e63; transform: scale(1.02); }
+
+        /* --- SABİT WHATSAPP --- */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; width: 60px; height: 60px; border-radius: 50%; text-align: center; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.4); z-index: 1000; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: currentColor; }
+
+        footer { text-align: center; padding: 40px 20px; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 40px; }
+
+        /* --- MOBİL (TELEFON) OPTİMİZASYONLARI --- */
         @media (max-width: 768px) {
             header { width: 95%; top: 15px; padding: 15px 25px; border-radius: 30px; }
+            .logo { font-size: 24px; }
             .menu-toggle { display: block; }
-            nav { position: absolute; top: 110%; left: 0; width: 100%; background: rgba(28,28,30,0.95); flex-direction: column; max-height: 0; overflow: hidden; transition: 0.4s; border-radius: 25px; }
+            nav { position: absolute; top: 110%; left: 0; width: 100%; background: rgba(28,28,30,0.95); backdrop-filter: blur(25px); flex-direction: column; padding: 0; max-height: 0; overflow: hidden; transition: 0.4s ease; border-radius: 25px; border: 1px solid var(--border); }
             nav.active { max-height: 400px; padding: 20px 0; }
-            nav a { margin: 15px 0; display: block; text-align: center; width: 100%; }
+            nav a, .cart-icon { margin: 15px 0; font-size: 15px; text-align: center; width: 100%; display: block; }
+            
+            .stories-wrapper { padding-top: 100px; }
+            .hero { height: 50vh; margin-top: 0; }
             .hero h1 { font-size: 3.5rem; }
             .hero h1 i { font-size: 4rem; }
+            section { padding: 60px 5%; }
+            .feed-overlay { transform: translateY(0); background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 20px; }
+            .form-container { padding: 30px 20px; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+            .whatsapp-float svg { width: 26px; height: 26px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ARKA PLAN IŞIKLARI -->
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
 
+    <!-- DYNAMIC ISLAND NAVBAR -->
     <header>
         <a href="#" class="logo">SN <span>Beautynails</span></a>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </div>
         <nav id="navMenu">
-            <a href="#hizmetler">Hizmetler</a>
-            <a href="#fiyatlar">Fiyatlar</a>
-            <a href="#randevu">Randevu Al</a>
+            <a href="#hizmetler" onclick="toggleMenu()">Hizmetler</a>
+            <a href="#galeri" onclick="toggleMenu()">İlham Al</a>
+            <a href="#fiyatlar" onclick="toggleMenu()">Fiyatlar</a>
+            <a href="#magaza" onclick="toggleMenu()">Mağaza</a>
+            <a href="#randevu" onclick="toggleMenu()">Randevu</a>
+            <div class="cart-icon" onclick="sepetiGoster()">Sepet <span class="cart-count" id="cartCount">0</span></div>
         </nav>
     </header>
 
-    <!-- REELS / STORIES ALANI -->
+    <!-- HİKAYELER (STORIES) -->
     <div class="stories-wrapper">
         <div class="story-bubble" onclick="openStory('https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Sonbahar Koleksiyonu', 'Kalıcı Oje')">
             <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
@@ -101,11 +194,11 @@
         </div>
         <div class="story-bubble" onclick="openStory('https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 'Müşteri Memnuniyeti', 'Nail Art')">
             <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Story">
-            <span>Sizden Gelenler</span>
+            <span>Müşterilerimiz</span>
         </div>
     </div>
 
-    <!-- HİKAYE MODALI -->
+    <!-- TAM EKRAN HİKAYE MODALI -->
     <div class="story-modal" id="storyModal">
         <div class="story-progress-container">
             <div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div>
@@ -119,19 +212,174 @@
         </div>
     </div>
 
-    <section class="hero" style="height: 60vh;">
+    <section class="hero">
         <div class="hero-bg"></div>
-        <div>
+        <div class="hero-content">
             <h1>Sınırları Aşan <br><i>Tasarımlar</i></h1>
+            <a href="#randevu" class="btn-glow">Yerinizi Ayırtın</a>
         </div>
     </section>
 
-    <!-- Diğer Bölümler (Hizmetler, Form vb.) buraya gelecek (Önceki kodla aynı bırakabilirsin) -->
-    
+    <!-- HİZMETLER -->
+    <section id="hizmetler">
+        <div class="section-header">
+            <span>Özel</span>
+            <h2>Hizmetlerimiz</h2>
+        </div>
+        <div class="services-grid">
+            <div class="glass-card">
+                <h3>Protez Tırnak</h3>
+                <p>Estetiği ve dayanıklılığı bir araya getiren ultra ince jel protez mimarisi. Kusursuz ve uzun ömürlü bir deneyim.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Kalıcı Oje</h3>
+                <p>İlk günkü parlaklığını haftalarca koruyan, çizilmelere karşı ekstra dirençli özel formül premium oje.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Nail Art</h3>
+                <p>Klasikten avangarda, tarzınızı tırnaklarınıza taşıyan kişiye özel el çizimi tasarımlar ve süslemeler.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOSYAL GALERİ -->
+    <section id="galeri">
+        <div class="section-header">
+            <span>Trendler</span>
+            <h2>Sosyal Akış</h2>
+        </div>
+        <div class="social-feed">
+            <div class="feed-card">
+                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 1">
+                <div class="feed-overlay">
+                    <p style="margin-bottom: 15px; font-size: 13px; font-weight:500;">French Ombre & Taş Süsleme</p>
+                    <button class="book-this-btn" onclick="scrollToRandevu('Kalıcı Oje')">Bunu Yaptır</button>
+                </div>
+            </div>
+            <div class="feed-card">
+                <img src="https://images.unsplash.com/photo-1595868227096-74ebbb27a85d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 2">
+                <div class="feed-overlay">
+                    <p style="margin-bottom: 15px; font-size: 13px; font-weight:500;">Soft Pembe Protez</p>
+                    <button class="book-this-btn" onclick="scrollToRandevu('Protez Tırnak')">Bunu Yaptır</button>
+                </div>
+            </div>
+            <div class="feed-card">
+                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nail 3">
+                <div class="feed-overlay">
+                    <p style="margin-bottom: 15px; font-size: 13px; font-weight:500;">Dark Red Kış Serisi</p>
+                    <button class="book-this-btn" onclick="scrollToRandevu('Nail Art')">Bunu Yaptır</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FİYAT LİSTESİ -->
+    <section id="fiyatlar">
+        <div class="section-header">
+            <span>Şeffaf</span>
+            <h2>Fiyat Listesi</h2>
+        </div>
+        <div class="price-list">
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAcc(this)">Jel & Akrilik İşlemleri <span style="color:var(--text-muted);">+</span></button>
+                <div class="accordion-content">
+                    <div class="price-row"><span>Sıfırdan Jel Protez</span> <span>1.200 TL</span></div>
+                    <div class="price-row"><span>Jel Protez Bakımı</span> <span>850 TL</span></div>
+                    <div class="price-row"><span>Protez Çıkarma (Manikür Dahil)</span> <span>450 TL</span></div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header" onclick="toggleAcc(this)">Kalıcı Oje & Tasarım <span style="color:var(--text-muted);">+</span></button>
+                <div class="accordion-content">
+                    <div class="price-row"><span>Kalıcı Oje (Tek Renk)</span> <span>600 TL</span></div>
+                    <div class="price-row"><span>Ombre / French Tasarım</span> <span>800 TL</span></div>
+                    <div class="price-row"><span>Özel Nail Art (Tırnak Başı)</span> <span>50 TL</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAĞAZA -->
+    <section id="magaza">
+        <div class="section-header">
+            <span>Premium</span>
+            <h2>Evde Bakım</h2>
+        </div>
+        <div class="shop-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1615397323214-ba367c74fba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Kütikül Yağı">
+                <h3>Özel Kütikül Yağı</h3>
+                <span class="price">250 TL</span>
+                <button class="add-to-cart" onclick="sepeteEkle('Kütikül Yağı', 250, this)">Sepete Ekle</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="El Kremi">
+                <h3>Organik El Kremi</h3>
+                <span class="price">380 TL</span>
+                <button class="add-to-cart" onclick="sepeteEkle('El Kremi', 380, this)">Sepete Ekle</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- RANDEVU FORMU -->
+    <section id="randevu">
+        <div class="section-header">
+            <span>Zamanınızı</span>
+            <h2>Rezerve Edin</h2>
+        </div>
+        <div class="form-container">
+            <form id="bookingForm">
+                <div class="input-box">
+                    <input type="text" id="name" required placeholder="Adınız ve Soyadınız">
+                </div>
+                <div class="input-box">
+                    <input type="tel" id="phone" required placeholder="Telefon Numaranız">
+                </div>
+                <div class="input-box">
+                    <input type="text" id="serviceInput" required placeholder="İstediğiniz İşlem (Örn: Kalıcı Oje)">
+                </div>
+                <div class="input-box">
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">Randevuyu Onayla</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>&copy; 2026 SN BEAUTYNAILS. Apple Design Inspired.</footer>
+
+    <!-- SABİT WHATSAPP BUTONU -->
+    <a href="https://wa.me/905551234567" class="whatsapp-float" target="_blank">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 2.4c-7.6 0-13.8 6.2-13.8 13.8 0 2.4.6 4.8 1.8 6.9l-2 7.3 7.5-2c2.1 1.1 4.4 1.7 6.8 1.7 7.6 0 13.8-6.2 13.8-13.8S24.2 2.4 16.6 2.4zm0 25c-2 0-4-.5-5.7-1.5l-.4-.2-4.2 1.1 1.1-4.1-.3-.5c-1.1-1.7-1.7-3.8-1.7-5.9 0-6.3 5.1-11.4 11.4-11.4s11.4 5.1 11.4 11.4-5.1 11.3-11.4 11.3zm6.2-8.4c-.3-.2-2-.1-2.3-.9-.1-.2-.2-.3-.3-.5-.2-.3-.4-.5-.7-.5-.2 0-.4.1-.5.3l-.7.9c-.2.2-.4.2-.7.1-1.6-.7-2.7-1.4-3.8-2.6-.8-.9-1.3-1.8-1.7-2.8-.1-.3 0-.5.2-.6l.5-.6c.2-.2.3-.4.3-.7 0-.2-.1-.5-.2-.7-.3-.8-1.2-2.9-1.6-3.9-.4-1-.8-1-1.1-1h-.9c-.3 0-.8.1-1.2.6-.4.5-1.5 1.5-1.5 3.6s1.6 4.1 1.8 4.4c.2.3 3 4.6 7.3 6.4 1 .4 1.8.7 2.5.9.9.3 1.9.2 2.6.1.8-.1 2.5-1 2.8-2 .4-1 .4-1.9.3-2.1-.2-.2-.5-.3-.9-.5z"/></svg>
+    </a>
+
+    <!-- TÜM ETKİLEŞİM SCRİPTLERİ -->
     <script>
+        // 1. Mobil Menü
         function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
 
-        // HİKAYE (STORY) SİSTEMİ
+        // 2. Fiyat Listesi Akordeon
+        function toggleAcc(btn) {
+            const content = btn.nextElementSibling;
+            const sign = btn.querySelector('span');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                sign.innerText = "+";
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(el => el.style.maxHeight = null);
+                document.querySelectorAll('.accordion-header span').forEach(el => el.innerText = "+");
+                content.style.maxHeight = content.scrollHeight + "px";
+                sign.innerText = "–";
+            }
+        }
+
+        // 3. Randevuya Kaydır
+        function scrollToRandevu(islem) {
+            document.getElementById('serviceInput').value = islem;
+            document.getElementById('randevu').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 4. Hikaye (Stories) Mantığı
         let storyTimer;
         let selectedService = '';
         
@@ -143,7 +391,6 @@
             
             modal.classList.add('active');
             
-            // 5 saniyelik progress bar animasyonu
             const progress = document.getElementById('storyProgress');
             progress.style.transition = 'none';
             progress.style.width = '0%';
@@ -163,10 +410,44 @@
 
         function storyToBooking() {
             closeStory();
-            alert(selectedService + " işlemi için randevu formuna yönlendiriliyorsunuz (Form kodunu buraya bağla).");
+            scrollToRandevu(selectedService);
         }
 
-        // PWA (Uygulama) Servis Çalışanı Kaydı
+        // 5. Sepet ve Mağaza Mantığı
+        let sepet = [];
+        let toplamTutar = 0;
+
+        function sepeteEkle(urunAdi, fiyat, btn) {
+            sepet.push({isim: urunAdi, fiyat: fiyat});
+            toplamTutar += fiyat;
+            document.getElementById('cartCount').innerText = sepet.length;
+            
+            let orijinalMetin = btn.innerText;
+            btn.innerText = "Eklendi ✓";
+            btn.style.background = "var(--text-main)";
+            btn.style.color = "var(--bg-dark)";
+            
+            setTimeout(() => {
+                btn.innerText = orijinalMetin;
+                btn.style.background = "var(--text-main)";
+                btn.style.color = "var(--bg-dark)";
+            }, 1500);
+        }
+
+        function sepetiGoster() {
+            if(sepet.length === 0) {
+                alert("Sepetiniz boş.");
+            } else {
+                let mesaj = "Sepetinizdekiler:\n";
+                sepet.forEach(urun => mesaj += `- ${urun.isim} (${urun.fiyat} TL)\n`);
+                mesaj += `\nToplam: ${toplamTutar} TL\nWhatsApp'tan sipariş vermek ister misiniz?`;
+                if(confirm(mesaj)) {
+                    window.open(`https://wa.me/905551234567?text=Merhaba, şu ürünleri sipariş vermek istiyorum: ${sepet.map(u=>u.isim).join(', ')}`, '_blank');
+                }
+            }
+        }
+
+        // 6. PWA Service Worker (Uygulama Gibi Yükleme)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -174,6 +455,47 @@
                 .catch(err => console.error('PWA hatası:', err));
             });
         }
+    </script>
+
+    <!-- FİREBASE VERİTABANI BAĞLANTISI -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+        // YALNIZCA BU KISMA KENDİ FİREBASE AYARLARINI GİRECEKSİN
+        const firebaseConfig = {
+            apiKey: "SENIN_API_KEY",
+            authDomain: "SENIN_AUTH_DOMAIN",
+            projectId: "SENIN_PROJECT_ID",
+            storageBucket: "SENIN_STORAGE_BUCKET",
+            messagingSenderId: "SENIN_MESSAGING_SENDER",
+            appId: "SENIN_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "İşleniyor...";
+            
+            try {
+                await addDoc(collection(db, "randevular"), {
+                    isim: document.getElementById('name').value,
+                    telefon: document.getElementById('phone').value,
+                    islem: document.getElementById('serviceInput').value,
+                    tarih: document.getElementById('date').value,
+                    zaman: serverTimestamp()
+                });
+                alert("Randevu talebiniz başarıyla alındı!");
+                e.target.reset();
+            } catch (error) {
+                alert("Firebase bağlantısı yapılmadı, ancak form arayüzü test edilebilir durumda.");
+            }
+            btn.innerText = originalText;
+        });
     </script>
 </body>
 </html>
