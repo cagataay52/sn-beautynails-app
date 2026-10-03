@@ -11,14 +11,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: #f4f4f9; display: flex; height: 100vh; overflow: hidden; }
         
-        /* SOL MENÜ (SIDEBAR) */
         .sidebar { width: 260px; background: #1c1c1e; color: white; padding: 30px 20px; display: flex; flex-direction: column; }
         .sidebar h2 { color: #d81b60; margin-bottom: 40px; font-size: 24px; font-family: 'Dancing Script', cursive; text-align: center; letter-spacing: 2px; }
         .nav-item { padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-weight: 500; color: #a0a0a0; }
         .nav-item:hover { background: rgba(216, 27, 96, 0.2); color: white; }
         .nav-item.active { background: #d81b60; color: white; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4); }
         
-        /* SAĞ İÇERİK ALANI */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; background: #f4f4f9; }
         .tab-content { display: none; animation: fadeIn 0.4s; }
         .tab-content.active { display: block; }
@@ -26,7 +24,6 @@
         
         .header-title { font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #111; }
         
-        /* RANDEVULAR TABLOSU */
         .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 18px 15px; text-align: left; border-bottom: 1px solid #f0f0f0; }
@@ -36,7 +33,6 @@
         .btn-refresh { background: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; float: right; margin-top: -50px; transition: 0.3s; }
         .btn-refresh:hover { background: #d81b60; }
 
-        /* FİNANS VE MALİYET */
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
         .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
         .metric-card h3 { margin: 0 0 10px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
@@ -45,7 +41,6 @@
         .cost { color: #d81b60 !important; }
         .chart-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); height: 400px; }
 
-        /* IG STÜDYO */
         .studio-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
         .studio-controls { display: flex; flex-direction: column; gap: 20px; }
         .studio-controls input { padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-family: 'Inter'; font-size: 14px; outline: none; }
@@ -58,7 +53,6 @@
 </head>
 <body>
 
-    <!-- SOL MENÜ -->
     <div class="sidebar">
         <h2>SN Studio</h2>
         <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Gelen Randevular</div>
@@ -66,24 +60,14 @@
         <div class="nav-item" onclick="switchTab('studio', this)">🎨 IG Post Stüdyosu</div>
     </div>
 
-    <!-- SAĞ İÇERİK -->
     <div class="main-content">
         
-        <!-- SEKM 1: RANDEVULAR (FIREBASE) -->
         <div id="randevular" class="tab-content active">
             <h1 class="header-title">Gelen Randevular</h1>
             <button class="btn-refresh" onclick="randevulariGetir()">Tabloyu Yenile</button>
             <div class="card">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Müşteri Adı</th>
-                            <th>Telefon</th>
-                            <th>İşlem Seçimi</th>
-                            <th>Tarih</th>
-                            <th>Durum</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Müşteri Adı</th><th>Telefon</th><th>İşlem Seçimi</th><th>Tarih</th><th>Durum</th></tr></thead>
                     <tbody id="randevuListesi">
                         <tr><td colspan="5" style="text-align:center; padding: 30px; color:#888;">Veriler Firebase'den yükleniyor...</td></tr>
                     </tbody>
@@ -91,29 +75,16 @@
             </div>
         </div>
 
-        <!-- SEKM 2: FİNANS VE MALİYET -->
         <div id="finans" class="tab-content">
             <h1 class="header-title">Finansal Durum & Maliyet (2026)</h1>
             <div class="metrics-grid">
-                <div class="metric-card">
-                    <h3>Tahmini Aylık Ciro</h3>
-                    <div class="value">₺124.500</div>
-                </div>
-                <div class="metric-card">
-                    <h3>Malzeme Giderleri</h3>
-                    <div class="value cost">₺32.800</div>
-                </div>
-                <div class="metric-card">
-                    <h3>Net Kar Marjı</h3>
-                    <div class="value profit">%73.6</div>
-                </div>
+                <div class="metric-card"><h3>Tahmini Aylık Ciro</h3><div class="value">₺124.500</div></div>
+                <div class="metric-card"><h3>Malzeme Giderleri</h3><div class="value cost">₺32.800</div></div>
+                <div class="metric-card"><h3>Net Kar Marjı</h3><div class="value profit">%73.6</div></div>
             </div>
-            <div class="chart-container">
-                <canvas id="financeChart"></canvas>
-            </div>
+            <div class="chart-container"><canvas id="financeChart"></canvas></div>
         </div>
 
-        <!-- SEKM 3: INSTAGRAM POST STÜDYOSU -->
         <div id="studio" class="tab-content">
             <h1 class="header-title">Instagram Şablon Üretici</h1>
             <div class="card studio-grid">
@@ -125,15 +96,12 @@
                     <button class="btn-studio" onclick="drawPost()">Önizlemeyi Güncelle</button>
                     <button class="btn-studio" style="background:#d81b60;" onclick="downloadPost()">Görseli İndir</button>
                 </div>
-                <div class="canvas-wrapper">
-                    <canvas id="igCanvas" width="1080" height="1350"></canvas>
-                </div>
+                <div class="canvas-wrapper"><canvas id="igCanvas" width="1080" height="1350"></canvas></div>
             </div>
         </div>
 
     </div>
 
-    <!-- UI VE SEKME SCRIPTLERI -->
     <script>
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -142,7 +110,6 @@
             element.classList.add('active');
         }
 
-        // CHART.JS GRAFİK
         const ctx = document.getElementById('financeChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
@@ -156,11 +123,8 @@
             options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
         });
 
-        // IG STÜDYO CANVAS KODLARI
-        const canvas = document.getElementById('igCanvas');
-        const canvasCtx = canvas.getContext('2d');
+        const canvas = document.getElementById('igCanvas'); const canvasCtx = canvas.getContext('2d');
         let uploadedImage = new Image();
-
         canvasCtx.fillStyle = '#0a0a0a'; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
         document.getElementById('imageUpload').addEventListener('change', function(e) {
@@ -202,19 +166,19 @@
         }
     </script>
 
-    <!-- FIREBASE (RANDEVULARI GERÇEKTEN ÇEKMEK İÇİN) -->
+    <!-- FİREBASE BAĞLANTISI (TAMAMLANDI) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-        // BURAYA KESİNLİKLE KENDİ FIREBASE BİLGİLERİNİ GİRMELİSİN
         const firebaseConfig = {
-            apiKey: "SENIN_API_KEY",
-            authDomain: "SENIN_AUTH_DOMAIN",
-            projectId: "SENIN_PROJECT_ID",
-            storageBucket: "SENIN_STORAGE_BUCKET",
-            messagingSenderId: "SENIN_MESSAGING_SENDER",
-            appId: "SENIN_APP_ID"
+            apiKey: "AIzaSyDTPjmpnp7fD3LDRGekS1jZL-_yZI1JqTk",
+            authDomain: "sn-beautynails.firebaseapp.com",
+            projectId: "sn-beautynails",
+            storageBucket: "sn-beautynails.firebasestorage.app",
+            messagingSenderId: "877888681284",
+            appId: "1:877888681284:web:14d82620cca85a9b625311",
+            measurementId: "G-59DLV5MZGF"
         };
 
         let app, db;
@@ -229,11 +193,11 @@
             const liste = document.getElementById('randevuListesi');
             
             if(!db) {
-                liste.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Hata: Firebase Config ayarları girilmemiş! Lütfen kodun sonundaki bilgileri doldurun.</td></tr>';
+                liste.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Bağlantı Kurulamadı!</td></tr>';
                 return;
             }
 
-            liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Güncelleniyor...</td></tr>';
+            liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Veriler Firebase üzerinden yükleniyor...</td></tr>';
             
             try {
                 const q = query(collection(db, "randevular"), orderBy("zaman", "desc"));
@@ -250,7 +214,6 @@
                     const data = doc.data();
                     const tr = document.createElement('tr');
                     
-                    // Telefon numarasını WhatsApp formatına çevirme (0555... -> 90555...)
                     let telLink = data.telefon ? data.telefon.replace(/[^0-9]/g, '') : '';
                     if(telLink.startsWith('0')) telLink = '90' + telLink.substring(1);
 
@@ -265,11 +228,10 @@
                 });
             } catch (error) {
                 console.error("Veri çekme hatası: ", error);
-                liste.innerHTML = `<tr><td colspan="5" style="color:red; text-align:center;">Bağlantı Hatası: Lütfen Firebase kurallarını ve Config'i kontrol edin.</td></tr>`;
+                liste.innerHTML = `<tr><td colspan="5" style="color:red; text-align:center;">Bağlantı Hatası. Veritabanını Firestore panelinden Test Modunda başlattığınıza emin olun.</td></tr>`;
             }
         }
 
-        // Sayfa ilk açıldığında tabloyu otomatik çekmeye çalış
         setTimeout(window.randevulariGetir, 1000);
     </script>
 </body>
