@@ -4,105 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SN Studio | Yönetim Paneli</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <!-- CHART.JS KÜTÜPHANESİ -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f4f4f9; padding: 20px; display: flex; gap: 20px; margin: 0; }
-        .sidebar { width: 250px; background: #1c1c1e; color: white; padding: 20px; border-radius: 20px; height: calc(100vh - 40px); }
-        .sidebar h2 { color: #d81b60; margin-bottom: 40px; font-size: 20px; }
-        .nav-item { padding: 15px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
-        .nav-item:hover, .nav-item.active { background: #d81b60; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #f4f4f9; display: flex; height: 100vh; overflow: hidden; }
         
-        .main-content { flex: 1; overflow-y: auto; }
-        .dashboard-header { font-size: 24px; font-weight: 600; margin-bottom: 20px; color: #111; }
+        /* SOL MENÜ (SIDEBAR) */
+        .sidebar { width: 260px; background: #1c1c1e; color: white; padding: 30px 20px; display: flex; flex-direction: column; }
+        .sidebar h2 { color: #d81b60; margin-bottom: 40px; font-size: 24px; font-family: 'Dancing Script', cursive; text-align: center; letter-spacing: 2px; }
+        .nav-item { padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-weight: 500; color: #a0a0a0; }
+        .nav-item:hover { background: rgba(216, 27, 96, 0.2); color: white; }
+        .nav-item.active { background: #d81b60; color: white; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4); }
         
-        /* FİNANS KARTLARI (COST CONTROL) */
-        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .metric-card h3 { margin: 0 0 10px; font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        /* SAĞ İÇERİK ALANI */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; background: #f4f4f9; }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .header-title { font-size: 28px; font-weight: 600; margin-bottom: 30px; color: #111; }
+        
+        /* RANDEVULAR TABLOSU */
+        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 18px 15px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+        th { color: #888; text-transform: uppercase; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+        tr:hover { background-color: #fafafa; }
+        .status-badge { padding: 6px 12px; border-radius: 20px; background: #e3fcef; color: #10b981; font-size: 12px; font-weight: 600; }
+        .btn-refresh { background: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; float: right; margin-top: -50px; transition: 0.3s; }
+        .btn-refresh:hover { background: #d81b60; }
+
+        /* FİNANS VE MALİYET */
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
+        .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .metric-card h3 { margin: 0 0 10px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         .metric-card .value { font-size: 32px; font-weight: 600; color: #111; }
-        .metric-card .profit { color: #25d366; }
-        .metric-card .cost { color: #d81b60; }
-        
-        .chart-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 30px; height: 400px; }
+        .profit { color: #10b981 !important; }
+        .cost { color: #d81b60 !important; }
+        .chart-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); height: 400px; }
+
+        /* IG STÜDYO */
+        .studio-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .studio-controls { display: flex; flex-direction: column; gap: 20px; }
+        .studio-controls input { padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-family: 'Inter'; font-size: 14px; outline: none; }
+        .studio-controls input:focus { border-color: #d81b60; }
+        .btn-studio { background: #111; color: #fff; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn-studio:hover { background: #d81b60; }
+        .canvas-wrapper { background: #eee; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; aspect-ratio: 4/5; }
+        canvas { width: 100%; height: 100%; display: block; }
     </style>
 </head>
 <body>
 
     <!-- SOL MENÜ -->
     <div class="sidebar">
-        <h2>SN Studio App</h2>
-        <div class="nav-item">📅 Randevular</div>
-        <div class="nav-item">🎨 IG Stüdyo</div>
-        <div class="nav-item active">📊 Maliyet & Finans</div>
+        <h2>SN Studio</h2>
+        <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Gelen Randevular</div>
+        <div class="nav-item" onclick="switchTab('finans', this)">📊 Finans & Maliyet</div>
+        <div class="nav-item" onclick="switchTab('studio', this)">🎨 IG Post Stüdyosu</div>
     </div>
 
-    <!-- SAĞ İÇERİK - COST CONTROL & FİNANS -->
+    <!-- SAĞ İÇERİK -->
     <div class="main-content">
-        <div class="dashboard-header">Finansal Durum & Maliyet Kontrolü (2026)</div>
         
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <h3>Aylık Toplam Ciro</h3>
-                <div class="value">₺124.500</div>
-            </div>
-            <div class="metric-card">
-                <h3>Malzeme Giderleri (Cost)</h3>
-                <div class="value cost">₺32.800</div>
-            </div>
-            <div class="metric-card">
-                <h3>Net Kar Marjı</h3>
-                <div class="value profit">%73.6</div>
+        <!-- SEKM 1: RANDEVULAR (FIREBASE) -->
+        <div id="randevular" class="tab-content active">
+            <h1 class="header-title">Gelen Randevular</h1>
+            <button class="btn-refresh" onclick="randevulariGetir()">Tabloyu Yenile</button>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Müşteri Adı</th>
+                            <th>Telefon</th>
+                            <th>İşlem Seçimi</th>
+                            <th>Tarih</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="randevuListesi">
+                        <tr><td colspan="5" style="text-align:center; padding: 30px; color:#888;">Veriler Firebase'den yükleniyor...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="chart-container">
-            <canvas id="financeChart"></canvas>
+        <!-- SEKM 2: FİNANS VE MALİYET -->
+        <div id="finans" class="tab-content">
+            <h1 class="header-title">Finansal Durum & Maliyet (2026)</h1>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Tahmini Aylık Ciro</h3>
+                    <div class="value">₺124.500</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Malzeme Giderleri</h3>
+                    <div class="value cost">₺32.800</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Net Kar Marjı</h3>
+                    <div class="value profit">%73.6</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="financeChart"></canvas>
+            </div>
         </div>
+
+        <!-- SEKM 3: INSTAGRAM POST STÜDYOSU -->
+        <div id="studio" class="tab-content">
+            <h1 class="header-title">Instagram Şablon Üretici</h1>
+            <div class="card studio-grid">
+                <div class="studio-controls">
+                    <p style="color:#666; font-size:14px; margin-bottom: 10px;">Fotoğrafınızı yükleyin, yazıları düzenleyin ve 1080x1350 formatında tek tıkla şık bir post indirin.</p>
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <input type="text" id="postTitle" placeholder="Ana Başlık (Örn: Kusursuz Protez)" value="Kusursuz Protez">
+                    <input type="text" id="postSub" placeholder="Alt Bilgi (Örn: Detaylı bilgi için DM)" value="Randevu İçin Link Profilde">
+                    <button class="btn-studio" onclick="drawPost()">Önizlemeyi Güncelle</button>
+                    <button class="btn-studio" style="background:#d81b60;" onclick="downloadPost()">Görseli İndir</button>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="igCanvas" width="1080" height="1350"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- UI VE SEKME SCRIPTLERI -->
     <script>
-        // CHART.JS - GELİR GİDER GRAFİĞİ (2026)
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // CHART.JS GRAFİK
         const ctx = document.getElementById('financeChart').getContext('2d');
-        
         new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim'],
                 datasets: [
-                    {
-                        label: 'Brüt Ciro (₺)',
-                        data: [85000, 92000, 88000, 105000, 112000, 125000, 140000, 135000, 128000, 124500],
-                        borderColor: '#111',
-                        backgroundColor: 'rgba(17,17,17,0.1)',
-                        borderWidth: 3,
-                        tension: 0.4,
-                        fill: true
-                    },
-                    {
-                        label: 'Gider Kalemleri (₺)',
-                        data: [25000, 28000, 24000, 31000, 33000, 38000, 42000, 39000, 35000, 32800],
-                        borderColor: '#d81b60',
-                        borderWidth: 3,
-                        borderDash: [5, 5],
-                        tension: 0.4
-                    }
+                    { label: 'Brüt Ciro (₺)', data: [85000, 92000, 88000, 105000, 112000, 125000, 140000, 135000, 128000, 124500], borderColor: '#111', backgroundColor: 'rgba(17,17,17,0.05)', borderWidth: 3, tension: 0.4, fill: true },
+                    { label: 'Gider Kalemleri (₺)', data: [25000, 28000, 24000, 31000, 33000, 38000, 42000, 39000, 35000, 32800], borderColor: '#d81b60', borderWidth: 3, borderDash: [5, 5], tension: 0.4 }
                 ]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: '2026 Ciro / Maliyet Analizi' }
-                },
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
         });
+
+        // IG STÜDYO CANVAS KODLARI
+        const canvas = document.getElementById('igCanvas');
+        const canvasCtx = canvas.getContext('2d');
+        let uploadedImage = new Image();
+
+        canvasCtx.fillStyle = '#0a0a0a'; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const reader = new FileReader();
+            reader.onload = function(event) { uploadedImage.src = event.target.result; uploadedImage.onload = () => drawPost(); }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        function drawPost() {
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+            canvasCtx.fillStyle = '#0a0a0a'; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if(uploadedImage.src) {
+                const ratio = Math.max(canvas.width / uploadedImage.width, canvas.height / uploadedImage.height);
+                const newWidth = uploadedImage.width * ratio; const newHeight = uploadedImage.height * ratio;
+                const x = (canvas.width - newWidth) / 2; const y = (canvas.height - newHeight) / 2;
+                canvasCtx.drawImage(uploadedImage, x, y, newWidth, newHeight);
+            }
+
+            let gradient = canvasCtx.createLinearGradient(0, canvas.height - 600, 0, canvas.height);
+            gradient.addColorStop(0, "transparent"); gradient.addColorStop(1, "rgba(10, 10, 10, 0.95)");
+            canvasCtx.fillStyle = gradient; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+            canvasCtx.strokeStyle = "rgba(255,255,255,0.2)"; canvasCtx.lineWidth = 10; canvasCtx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+
+            canvasCtx.font = "bold 80px 'Dancing Script', cursive"; canvasCtx.fillStyle = "#d81b60"; canvasCtx.textAlign = "center"; canvasCtx.fillText("SN Beautynails", canvas.width / 2, 140);
+            
+            const title = document.getElementById('postTitle').value;
+            canvasCtx.font = "bold 90px 'Inter', sans-serif"; canvasCtx.fillStyle = "#ffffff"; canvasCtx.fillText(title.toUpperCase(), canvas.width / 2, canvas.height - 200);
+            
+            const sub = document.getElementById('postSub').value;
+            canvasCtx.font = "40px 'Inter', sans-serif"; canvasCtx.fillStyle = "#aaaaaa"; canvasCtx.fillText(sub, canvas.width / 2, canvas.height - 120);
+        }
+        setTimeout(drawPost, 500);
+
+        function downloadPost() {
+            const link = document.createElement('a'); link.download = 'sn-beautynails-post.png';
+            link.href = canvas.toDataURL("image/png"); link.click();
+        }
+    </script>
+
+    <!-- FIREBASE (RANDEVULARI GERÇEKTEN ÇEKMEK İÇİN) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+        // BURAYA KESİNLİKLE KENDİ FIREBASE BİLGİLERİNİ GİRMELİSİN
+        const firebaseConfig = {
+            apiKey: "SENIN_API_KEY",
+            authDomain: "SENIN_AUTH_DOMAIN",
+            projectId: "SENIN_PROJECT_ID",
+            storageBucket: "SENIN_STORAGE_BUCKET",
+            messagingSenderId: "SENIN_MESSAGING_SENDER",
+            appId: "SENIN_APP_ID"
+        };
+
+        let app, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        } catch (error) {
+            console.error("Firebase başlatılamadı:", error);
+        }
+
+        window.randevulariGetir = async function() {
+            const liste = document.getElementById('randevuListesi');
+            
+            if(!db) {
+                liste.innerHTML = '<tr><td colspan="5" style="text-align:center; color:red;">Hata: Firebase Config ayarları girilmemiş! Lütfen kodun sonundaki bilgileri doldurun.</td></tr>';
+                return;
+            }
+
+            liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Güncelleniyor...</td></tr>';
+            
+            try {
+                const q = query(collection(db, "randevular"), orderBy("zaman", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                liste.innerHTML = ""; 
+                
+                if(querySnapshot.empty) {
+                    liste.innerHTML = '<tr><td colspan="5" style="text-align:center;">Henüz hiç randevu yok.</td></tr>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const tr = document.createElement('tr');
+                    
+                    // Telefon numarasını WhatsApp formatına çevirme (0555... -> 90555...)
+                    let telLink = data.telefon ? data.telefon.replace(/[^0-9]/g, '') : '';
+                    if(telLink.startsWith('0')) telLink = '90' + telLink.substring(1);
+
+                    tr.innerHTML = `
+                        <td><strong>${data.isim || '-'}</strong></td>
+                        <td><a href="https://wa.me/${telLink}" target="_blank" style="color:#d81b60; text-decoration:none; font-weight:600;">${data.telefon || '-'}</a></td>
+                        <td>${data.islem || '-'}</td>
+                        <td>${data.tarih || '-'}</td>
+                        <td><span class="status-badge">Yeni</span></td>
+                    `;
+                    liste.appendChild(tr);
+                });
+            } catch (error) {
+                console.error("Veri çekme hatası: ", error);
+                liste.innerHTML = `<tr><td colspan="5" style="color:red; text-align:center;">Bağlantı Hatası: Lütfen Firebase kurallarını ve Config'i kontrol edin.</td></tr>`;
+            }
+        }
+
+        // Sayfa ilk açıldığında tabloyu otomatik çekmeye çalış
+        setTimeout(window.randevulariGetir, 1000);
     </script>
 </body>
 </html>
