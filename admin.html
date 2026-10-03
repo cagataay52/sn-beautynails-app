@@ -41,7 +41,6 @@
         .btn-refresh { background: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 14px; }
         .btn-refresh:hover { background: #d81b60; }
 
-        /* FİNANS */
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px; }
         .metric-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border-left: 4px solid #111; }
         .metric-card.profit-card { border-left-color: #10b981; }
@@ -51,14 +50,12 @@
         .profit { color: #10b981 !important; }
         .cost { color: #e11d48 !important; }
         
-        /* FORMLAR */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; }
         .form-group input { padding: 12px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Inter'; font-size: 14px; outline: none; }
         .form-group input:focus { border-color: #d81b60; }
         
-        /* IG STÜDYO */
         .studio-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
         .studio-controls { display: flex; flex-direction: column; gap: 15px; }
         .canvas-wrapper { background: #eee; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; aspect-ratio: 4/5; }
@@ -71,6 +68,7 @@
         <h2>SN Studio</h2>
         <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Randevu Yönetimi</div>
         <div class="nav-item" onclick="switchTab('maliyetler', this)">💰 Fiyat & Maliyet Ayarları</div>
+        <div class="nav-item" onclick="switchTab('magazaYonetim', this)">🛍️ Mağaza Ürünleri</div>
         <div class="nav-item" onclick="switchTab('finans', this)">📊 Gerçek Zamanlı Finans</div>
         <div class="nav-item" onclick="switchTab('icerik', this)">📱 İçerik (Hikaye/Akış)</div>
         <div class="nav-item" onclick="switchTab('studio', this)">🎨 PRO IG Stüdyosu</div>
@@ -97,7 +95,7 @@
             </div>
         </div>
 
-        <!-- FİYAT VE MALİYET AYARLARI (YENİ) -->
+        <!-- FİYAT VE MALİYET AYARLARI -->
         <div id="maliyetler" class="tab-content">
             <div class="header-title">Hizmet Fiyatları ve Maliyetleri</div>
             <div class="card">
@@ -118,6 +116,24 @@
             </div>
         </div>
 
+        <!-- YENİ EKLENEN: MAĞAZA YÖNETİMİ -->
+        <div id="magazaYonetim" class="tab-content">
+            <div class="header-title">Mağaza Ürünleri (Evde Bakım)</div>
+            <div class="card">
+                <div class="card-header">🛍️ Yeni Ürün Ekle</div>
+                <form id="urunForm" style="display:flex; flex-direction:column; gap:15px;">
+                    <input type="text" id="urunIsim" placeholder="Ürün Adı (Örn: Keratin Bakım Yağı)" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
+                    <input type="number" id="urunFiyat" placeholder="Fiyat (TL)" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
+                    <input type="file" id="urunImg" accept="image/*" required>
+                    <button type="submit" class="btn-refresh">Ürünü Mağazaya Ekle</button>
+                </form>
+            </div>
+            <div class="card">
+                <div class="card-header">Sitedeki Mevcut Ürünler</div>
+                <div id="urunYonetimListesi" style="display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+        </div>
+
         <!-- FİNANS -->
         <div id="finans" class="tab-content">
             <div class="header-title">Canlı Finansal Veriler (Randevu + Ayarlar Entegreli)</div>
@@ -129,7 +145,7 @@
             <div class="card" style="height: 400px;"><canvas id="financeChart"></canvas></div>
         </div>
 
-        <!-- İÇERİK YÖNETİMİ (YENİ - HİKAYE VE AKIŞ YÜKLEME) -->
+        <!-- İÇERİK YÖNETİMİ -->
         <div id="icerik" class="tab-content">
             <div class="header-title">Site İçeriklerini Yönet</div>
             
@@ -246,7 +262,7 @@
             link.href = canvas.toDataURL("image/png"); link.click();
         }
 
-        // RESMİ KÜÇÜLTME (VERİTABANI ŞİŞMESİN DİYE)
+        // RESMİ YÜKSEK KALİTEDE SIKIŞTIRMA (HD ÇÖZÜNÜRLÜK)
         function resizeBase64(file, maxW, maxH, callback) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -259,7 +275,7 @@
                     canvas.width = w; canvas.height = h;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, w, h);
-                    callback(canvas.toDataURL('image/jpeg', 0.6)); // Boyutu iyice sıkıştırır
+                    callback(canvas.toDataURL('image/jpeg', 0.85)); // Kalite 0.6'dan 0.85'e (Çok daha net) artırıldı
                 }
                 img.src = e.target.result;
             }
@@ -323,6 +339,37 @@
             } catch(er) { alert("Hata"); }
         });
 
+        // MAĞAZA ÜRÜN YÖNETİMİ
+        async function loadUrunlerAdmin() {
+            const list = document.getElementById('urunYonetimListesi');
+            try {
+                const snap = await getDocs(query(collection(db, "urunler"), orderBy("zaman", "desc")));
+                list.innerHTML = "";
+                snap.forEach(d => {
+                    const data = d.data();
+                    list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;">
+                        <span style="font-size:14px; font-weight:600;">${data.isim} - ₺${data.fiyat}</span>
+                        <button class="btn-action delete" onclick="silBelge('urunler', '${d.id}')">Kaldır</button>
+                    </div>`;
+                });
+                if(list.innerHTML === "") list.innerHTML = '<span style="color:#888; font-size:13px;">Mağazada ürün yok.</span>';
+            } catch(e){ console.log(e); }
+        }
+
+        document.getElementById('urunForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const file = document.getElementById('urunImg').files[0];
+            resizeBase64(file, 800, 800, async (base64) => {
+                await addDoc(collection(db, "urunler"), {
+                    isim: document.getElementById('urunIsim').value,
+                    fiyat: Number(document.getElementById('urunFiyat').value),
+                    resim: base64, zaman: serverTimestamp()
+                });
+                e.target.reset(); loadUrunlerAdmin(); alert("Ürün Mağazaya Eklendi!");
+            });
+        });
+
+
         // 2. İÇERİK YÖNETİM SİSTEMİ (HİKAYE VE AKIŞ)
         async function loadIcerik() {
             // Hikayeler
@@ -350,7 +397,8 @@
         document.getElementById('storyForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const file = document.getElementById('storyImg').files[0];
-            resizeBase64(file, 400, 400, async (base64) => {
+            // HİKAYE KALİTESİ 400x400'den 1080x1920'ye YÜKSELTİLDİ!
+            resizeBase64(file, 1080, 1920, async (base64) => {
                 await addDoc(collection(db, "hikayeler"), {
                     baslik: document.getElementById('storyTitle').value,
                     islem: document.getElementById('storyService').value,
@@ -363,7 +411,8 @@
         document.getElementById('feedForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const file = document.getElementById('feedImg').files[0];
-            resizeBase64(file, 600, 800, async (base64) => {
+            // AKIŞ KALİTESİ 600x800'den 1080x1350'ye YÜKSELTİLDİ!
+            resizeBase64(file, 1080, 1350, async (base64) => {
                 await addDoc(collection(db, "sosyal_akis"), {
                     baslik: document.getElementById('feedTitle').value,
                     islem: document.getElementById('feedService').value,
@@ -378,6 +427,7 @@
             if(confirm("Silmek istediğinize emin misiniz? (Site anında güncellenir)")) {
                 await deleteDoc(doc(db, koleksiyon, id));
                 if(koleksiyon === 'hizmet_ayarlari') loadMaliyetler();
+                else if(koleksiyon === 'urunler') loadUrunlerAdmin();
                 else loadIcerik();
             }
         }
@@ -454,7 +504,7 @@
         }
 
         // Başlangıç Yüklemeleri
-        setTimeout(() => { loadMaliyetler(); loadIcerik(); }, 500);
+        setTimeout(() => { loadMaliyetler(); loadUrunlerAdmin(); loadIcerik(); }, 500);
     </script>
 </body>
 </html>
