@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; }
         body { font-family: 'Inter', sans-serif; background-color: #f4f4f9; display: flex; height: 100vh; overflow: hidden; }
         
         .sidebar { width: 270px; background: #1c1c1e; color: white; padding: 30px 20px; display: flex; flex-direction: column; overflow-y: auto; }
@@ -67,8 +67,9 @@
     <div class="sidebar">
         <h2>SN Studio</h2>
         <div class="nav-item active" onclick="switchTab('randevular', this)">📅 Randevu Yönetimi</div>
+        <div class="nav-item" onclick="switchTab('siparisler', this)">📦 Mağaza Siparişleri</div>
         <div class="nav-item" onclick="switchTab('maliyetler', this)">💰 Fiyat & Maliyet Ayarları</div>
-        <div class="nav-item" onclick="switchTab('magazaYonetim', this)">🛍️ Mağaza Ürünleri</div>
+        <div class="nav-item" onclick="switchTab('magazaYonetim', this)">🛍️ Ürün Ekle / Çıkar</div>
         <div class="nav-item" onclick="switchTab('finans', this)">📊 Gerçek Zamanlı Finans</div>
         <div class="nav-item" onclick="switchTab('icerik', this)">📱 İçerik (Hikaye/Akış)</div>
         <div class="nav-item" onclick="switchTab('studio', this)">🎨 PRO IG Stüdyosu</div>
@@ -95,6 +96,25 @@
             </div>
         </div>
 
+        <!-- YENİ: SİPARİŞLER (E-TİCARET) -->
+        <div id="siparisler" class="tab-content">
+            <div class="header-title">Gelen Mağaza Siparişleri <button class="btn-refresh" onclick="siparisleriGetir()">Yenile</button></div>
+            <div class="card">
+                <div class="card-header">📦 Hazırlanması Beklenen Siparişler</div>
+                <table>
+                    <thead><tr><th>Müşteri Bilgisi</th><th>Adres</th><th>Sepetteki Ürünler</th><th>Toplam Tutar</th><th>İşlem</th></tr></thead>
+                    <tbody id="aktifSiparisListesi"><tr><td colspan="5" style="text-align:center; color:#888;">Yükleniyor...</td></tr></tbody>
+                </table>
+            </div>
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-header">✅ Kargolanan / Tamamlanan Siparişler</div>
+                <table>
+                    <thead><tr><th>Müşteri Bilgisi</th><th>Adres</th><th>Sepetteki Ürünler</th><th>Toplam Tutar</th></tr></thead>
+                    <tbody id="gecmisSiparisListesi"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- FİYAT VE MALİYET AYARLARI -->
         <div id="maliyetler" class="tab-content">
             <div class="header-title">Hizmet Fiyatları ve Maliyetleri</div>
@@ -102,13 +122,14 @@
                 <div class="card-header">Yeni Hizmet / Maliyet Ekle</div>
                 <form id="maliyetForm" class="form-grid">
                     <div class="form-group"><label>İşlem Adı (Örn: Kalıcı Oje)</label><input type="text" id="malIslem" required></div>
-                    <div class="form-group"><label>Müşteriden Alınan Fiyat (TL)</label><input type="number" id="malFiyat" required></div>
-                    <div class="form-group"><label>Sana Olan Malzeme Maliyeti (TL)</label><input type="number" id="malGider" required></div>
+                    <!-- Küsüratlı rakamlar için step="0.01" eklendi -->
+                    <div class="form-group"><label>Müşteriden Alınan Fiyat (TL)</label><input type="number" step="0.01" id="malFiyat" required></div>
+                    <div class="form-group"><label>Sana Olan Malzeme Maliyeti (TL)</label><input type="number" step="0.01" id="malGider" required></div>
                     <div class="form-group" style="justify-content: flex-end;"><button type="submit" class="btn-refresh" style="width:100%;">Kaydet / Güncelle</button></div>
                 </form>
             </div>
             <div class="card">
-                <div class="card-header">Kayıtlı Fiyat Listesi (Finans hesaplaması buradan çekilir)</div>
+                <div class="card-header">Kayıtlı Fiyat Listesi</div>
                 <table>
                     <thead><tr><th>İşlem Adı</th><th>Satış Fiyatı (Ciro)</th><th>Maliyet (Gider)</th><th>Net Kar</th><th>İşlem</th></tr></thead>
                     <tbody id="maliyetListesi"></tbody>
@@ -116,14 +137,14 @@
             </div>
         </div>
 
-        <!-- YENİ EKLENEN: MAĞAZA YÖNETİMİ -->
+        <!-- MAĞAZA ÜRÜN YÖNETİMİ -->
         <div id="magazaYonetim" class="tab-content">
-            <div class="header-title">Mağaza Ürünleri (Evde Bakım)</div>
+            <div class="header-title">Mağaza Ürünleri Ekle / Çıkar</div>
             <div class="card">
-                <div class="card-header">🛍️ Yeni Ürün Ekle</div>
+                <div class="card-header">🛍️️ Yeni Ürün Ekle</div>
                 <form id="urunForm" style="display:flex; flex-direction:column; gap:15px;">
                     <input type="text" id="urunIsim" placeholder="Ürün Adı (Örn: Keratin Bakım Yağı)" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
-                    <input type="number" id="urunFiyat" placeholder="Fiyat (TL)" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
+                    <input type="number" step="0.01" id="urunFiyat" placeholder="Fiyat (TL) - Örn: 150.50" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
                     <input type="file" id="urunImg" accept="image/*" required>
                     <button type="submit" class="btn-refresh">Ürünü Mağazaya Ekle</button>
                 </form>
@@ -148,9 +169,7 @@
         <!-- İÇERİK YÖNETİMİ -->
         <div id="icerik" class="tab-content">
             <div class="header-title">Site İçeriklerini Yönet</div>
-            
             <div class="form-grid">
-                <!-- Hikaye Ekleme -->
                 <div class="card">
                     <div class="card-header">📱 Siteye Yeni Hikaye (Story) Ekle</div>
                     <form id="storyForm" style="display:flex; flex-direction:column; gap:15px;">
@@ -162,8 +181,6 @@
                     <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
                     <div id="storyList" style="display:flex; flex-direction:column; gap:10px;"></div>
                 </div>
-
-                <!-- Sosyal Akış Ekleme -->
                 <div class="card">
                     <div class="card-header">📸 Siteye Sosyal Akış (Post) Ekle</div>
                     <form id="feedForm" style="display:flex; flex-direction:column; gap:15px;">
@@ -192,7 +209,6 @@
                 <div class="canvas-wrapper"><canvas id="igCanvas" width="1080" height="1350"></canvas></div>
             </div>
         </div>
-
     </div>
 
     <!-- UI VE CHART -->
@@ -217,7 +233,6 @@
             options: { responsive: true, maintainAspectRatio: false }
         });
 
-        // CANVAS (IG STÜDYO)
         const canvas = document.getElementById('igCanvas'); const canvasCtx = canvas.getContext('2d');
         let uploadedImage = new Image();
         canvasCtx.fillStyle = '#0a0a0a'; canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -262,7 +277,6 @@
             link.href = canvas.toDataURL("image/png"); link.click();
         }
 
-        // RESMİ YÜKSEK KALİTEDE SIKIŞTIRMA (HD ÇÖZÜNÜRLÜK)
         function resizeBase64(file, maxW, maxH, callback) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -275,7 +289,7 @@
                     canvas.width = w; canvas.height = h;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, w, h);
-                    callback(canvas.toDataURL('image/jpeg', 0.85)); // Kalite 0.6'dan 0.85'e (Çok daha net) artırıldı
+                    callback(canvas.toDataURL('image/jpeg', 0.6));
                 }
                 img.src = e.target.result;
             }
@@ -301,7 +315,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let dynamicFiyatlar = {}; // Veritabanından çekeceğimiz maliyet tablosu
+        let dynamicFiyatlar = {}; 
 
         // 1. MALİYET AYARLARI SİSTEMİ
         async function loadMaliyetler() {
@@ -316,14 +330,14 @@
                     liste.innerHTML += `
                     <tr>
                         <td><strong>${data.islem}</strong></td>
-                        <td>₺${data.fiyat}</td>
-                        <td>₺${data.maliyet}</td>
-                        <td style="color:#10b981; font-weight:600;">₺${data.fiyat - data.maliyet}</td>
+                        <td>₺${Number(data.fiyat).toFixed(2)}</td>
+                        <td>₺${Number(data.maliyet).toFixed(2)}</td>
+                        <td style="color:#10b981; font-weight:600;">₺${(data.fiyat - data.maliyet).toFixed(2)}</td>
                         <td><button class="btn-action delete" onclick="silBelge('hizmet_ayarlari', '${d.id}')">Sil</button></td>
                     </tr>`;
                 });
-                if(liste.innerHTML === "") liste.innerHTML = '<tr><td colspan="5">Henüz fiyat eklenmedi. (Hesaplamalar sıfır görünecektir)</td></tr>';
-                randevulariGetir(); // Fiyatlar yüklendiğinde finansı tekrar hesapla
+                if(liste.innerHTML === "") liste.innerHTML = '<tr><td colspan="5">Henüz fiyat eklenmedi.</td></tr>';
+                randevulariGetir(); 
             } catch (e) { console.log(e); }
         }
 
@@ -332,14 +346,14 @@
             try {
                 await addDoc(collection(db, "hizmet_ayarlari"), {
                     islem: document.getElementById('malIslem').value,
-                    fiyat: document.getElementById('malFiyat').value,
-                    maliyet: document.getElementById('malGider').value
+                    fiyat: parseFloat(document.getElementById('malFiyat').value),
+                    maliyet: parseFloat(document.getElementById('malGider').value)
                 });
                 e.target.reset(); loadMaliyetler();
             } catch(er) { alert("Hata"); }
         });
 
-        // MAĞAZA ÜRÜN YÖNETİMİ
+        // 2. MAĞAZA ÜRÜN YÖNETİMİ
         async function loadUrunlerAdmin() {
             const list = document.getElementById('urunYonetimListesi');
             try {
@@ -348,7 +362,7 @@
                 snap.forEach(d => {
                     const data = d.data();
                     list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; align-items:center;">
-                        <span style="font-size:14px; font-weight:600;">${data.isim} - ₺${data.fiyat}</span>
+                        <span style="font-size:14px; font-weight:600;">${data.isim} - ₺${Number(data.fiyat).toFixed(2)}</span>
                         <button class="btn-action delete" onclick="silBelge('urunler', '${d.id}')">Kaldır</button>
                     </div>`;
                 });
@@ -362,7 +376,7 @@
             resizeBase64(file, 800, 800, async (base64) => {
                 await addDoc(collection(db, "urunler"), {
                     isim: document.getElementById('urunIsim').value,
-                    fiyat: Number(document.getElementById('urunFiyat').value),
+                    fiyat: parseFloat(document.getElementById('urunFiyat').value),
                     resim: base64, zaman: serverTimestamp()
                 });
                 e.target.reset(); loadUrunlerAdmin(); alert("Ürün Mağazaya Eklendi!");
@@ -370,9 +384,8 @@
         });
 
 
-        // 2. İÇERİK YÖNETİM SİSTEMİ (HİKAYE VE AKIŞ)
+        // 3. İÇERİK YÖNETİM SİSTEMİ (HİKAYE VE AKIŞ)
         async function loadIcerik() {
-            // Hikayeler
             const stList = document.getElementById('storyList'); stList.innerHTML = "";
             const stSnap = await getDocs(query(collection(db, "hikayeler"), orderBy("zaman", "desc")));
             stSnap.forEach(d => {
@@ -382,7 +395,6 @@
                     <button class="btn-action delete" onclick="silBelge('hikayeler', '${d.id}')">Kaldır</button>
                 </div>`;
             });
-            // Akış
             const fdList = document.getElementById('feedList'); fdList.innerHTML = "";
             const fdSnap = await getDocs(query(collection(db, "sosyal_akis"), orderBy("zaman", "desc")));
             fdSnap.forEach(d => {
@@ -397,7 +409,6 @@
         document.getElementById('storyForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const file = document.getElementById('storyImg').files[0];
-            // HİKAYE KALİTESİ 400x400'den 1080x1920'ye YÜKSELTİLDİ!
             resizeBase64(file, 1080, 1920, async (base64) => {
                 await addDoc(collection(db, "hikayeler"), {
                     baslik: document.getElementById('storyTitle').value,
@@ -411,7 +422,6 @@
         document.getElementById('feedForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const file = document.getElementById('feedImg').files[0];
-            // AKIŞ KALİTESİ 600x800'den 1080x1350'ye YÜKSELTİLDİ!
             resizeBase64(file, 1080, 1350, async (base64) => {
                 await addDoc(collection(db, "sosyal_akis"), {
                     baslik: document.getElementById('feedTitle').value,
@@ -422,9 +432,8 @@
             });
         });
 
-        // GENEL SİLME FONKSİYONU
         window.silBelge = async function(koleksiyon, id) {
-            if(confirm("Silmek istediğinize emin misiniz? (Site anında güncellenir)")) {
+            if(confirm("Silmek istediğinize emin misiniz?")) {
                 await deleteDoc(doc(db, koleksiyon, id));
                 if(koleksiyon === 'hizmet_ayarlari') loadMaliyetler();
                 else if(koleksiyon === 'urunler') loadUrunlerAdmin();
@@ -432,7 +441,62 @@
             }
         }
 
-        // 3. RANDEVULAR VE GERÇEK FİNANS
+        // 4. SİPARİŞLER (E-TİCARET) SİSTEMİ
+        window.siparisleriGetir = async function() {
+            const aktifSipListe = document.getElementById('aktifSiparisListesi');
+            const gecmisSipListe = document.getElementById('gecmisSiparisListesi');
+            aktifSipListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Veriler yükleniyor...</td></tr>';
+            gecmisSipListe.innerHTML = '';
+
+            try {
+                const q = query(collection(db, "siparisler"), orderBy("zaman", "desc"));
+                const snap = await getDocs(q);
+                aktifSipListe.innerHTML = "";
+
+                snap.forEach((documentObj) => {
+                    const data = documentObj.data();
+                    const durum = data.durum || 'yeni';
+                    const tr = document.createElement('tr');
+                    
+                    // Sepetteki ürünlerin listesini çıkar
+                    let urunlerMetin = "";
+                    if(data.urunler && Array.isArray(data.urunler)) {
+                        data.urunler.forEach(u => urunlerMetin += `<span style="display:block; font-size:12px;">• ${u.isim}</span>`);
+                    }
+
+                    if(durum === 'yeni') {
+                        tr.innerHTML = `
+                            <td><strong>${data.isim}</strong><br><span style="font-size:12px; color:var(--accent);">${data.telefon}</span></td>
+                            <td style="font-size:12px; max-width:150px;">${data.adres}</td>
+                            <td>${urunlerMetin}</td>
+                            <td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td>
+                            <td><button class="btn-action" onclick="siparisTamamla('${documentObj.id}')">Kargolandı İşaretle</button></td>
+                        `;
+                        aktifSipListe.appendChild(tr);
+                    } else {
+                        tr.innerHTML = `
+                            <td><strong>${data.isim}</strong></td>
+                            <td style="font-size:12px;">${data.adres}</td>
+                            <td>${urunlerMetin}</td>
+                            <td style="font-weight:bold;">₺${Number(data.toplamTutar).toFixed(2)}</td>
+                        `;
+                        gecmisSipListe.appendChild(tr);
+                    }
+                });
+
+                if(aktifSipListe.innerHTML === "") aktifSipListe.innerHTML = '<tr><td colspan="5" style="text-align:center;">Bekleyen sipariş yok.</td></tr>';
+            } catch (error) { console.log(error); }
+        }
+
+        window.siparisTamamla = async function(id) {
+            if(confirm("Bu siparişi kargolandı/tamamlandı olarak arşive almak istiyor musunuz?")) {
+                await updateDoc(doc(db, "siparisler", id), { durum: 'tamamlandi' });
+                siparisleriGetir();
+            }
+        }
+
+
+        // 5. RANDEVULAR VE GERÇEK FİNANS
         window.randevulariGetir = async function() {
             const aktifListe = document.getElementById('aktifRandevuListesi');
             const gecmisListe = document.getElementById('gecmisRandevuListesi');
@@ -458,7 +522,6 @@
 
                     const tr = document.createElement('tr');
                     
-                    // Finansal Hesaplama (Senin girdiğin tablodan okur)
                     let hesap = dynamicFiyatlar[data.islem] || { ciro: 0, maliyet: 0 };
                     topCiro += hesap.ciro;
                     topMaliyet += hesap.maliyet;
@@ -504,7 +567,7 @@
         }
 
         // Başlangıç Yüklemeleri
-        setTimeout(() => { loadMaliyetler(); loadUrunlerAdmin(); loadIcerik(); }, 500);
+        setTimeout(() => { loadMaliyetler(); loadUrunlerAdmin(); loadIcerik(); siparisleriGetir(); }, 500);
     </script>
 </body>
 </html>
